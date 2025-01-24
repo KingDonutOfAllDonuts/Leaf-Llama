@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.no-drag {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(40px); /* Start slightly below */
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0); /* Slide up smoothly */
+}
+
+body, html {
+  @apply font-roboto scroll-smooth
+}
