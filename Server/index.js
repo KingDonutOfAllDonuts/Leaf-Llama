@@ -9,7 +9,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 dotenv.config();
 const port = process.env.PORT || 3000;
-
+console.log('start up')
 const app = express();
 app.use(cors());
 app.use(express.json());
