@@ -27,11 +27,22 @@ const Celebrate = () => {
     return () => clearInterval(interval);
   }, [colors.length]);
 
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    // Set dimensions only on the client side
+    if (typeof window !== 'undefined') {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+  }, []);
   return (
     <div
       className={`h-screen w-full flex items-center justify-center transition-colors duration-1000 ${colors[backgroundIndex]}`}
     >
-      <Confetti width={window.innerWidth} height={window.innerHeight} />
+      <Confetti width={dimensions.width} height={dimensions.height} />
       <div className="text-center p-8 bg-white bg-opacity-80 rounded-lg shadow-md">
         <h1 className="text-4xl font-bold mb-4 text-green-700">
           You are a perfect match with our criteria!
