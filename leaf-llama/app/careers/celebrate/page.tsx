@@ -37,7 +37,7 @@ const Celebrate = () => {
           You are a perfect match with our criteria!
         </h1>
         <p className="text-lg text-gray-800 mb-6">
-          Recruiter's comments: <br />
+          Recruiter&apos;s comments: <br />
           <span className="font-semibold">
             I liked when you said your favorite vegetable was {favVeg}!
           </span>

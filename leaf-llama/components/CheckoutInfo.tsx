@@ -262,7 +262,7 @@ const OrderPlacedPopup = ({ orderResponse, onClose, emptyCart }) => {
     content = (
       <div className="flex flex-col items-center justify-center h-full text-green-600">
         <FaCheckCircle size={64} className="mb-4" />
-        <h2 className="text-2xl font-bold">Order has been placed. It's on the house!</h2>
+        <h2 className="text-2xl font-bold">Order has been placed. It&apos;s on the house!</h2>
         <Link
           href={'/order'}
           className="bg-green-600 text-white px-6 py-2 rounded-full mt-5 hover:bg-green-700 transition"
