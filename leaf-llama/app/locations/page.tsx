@@ -34,6 +34,16 @@ const locations = [
     name: "Statue of Liberty",
     position: [40.689187786729875, -74.04450348450182],
   },
+  {
+    id: 7,
+    name: "Antartica",
+    position: [-68.70520011530638, 77.9814883135157],
+  },
+  {
+    id: 8,
+    name: "White House",
+    position: [38.897627438288964, -77.03650897203966],
+  },
 ];
 
 const Locations = () => {
@@ -61,7 +71,7 @@ const Locations = () => {
                 <h3 className="text-green-700 font-bold uppercase text-xl mb-2">
                   {location.name}
                 </h3>
-                <p className=" text-blue-600 text-sm">(858) 609-6066</p>
+                <p className=" text-blue-600 text-sm">(555) 555-5555</p>
                 <p className="">Open 24/7</p>
                 <div className="flex flex-col gap-2 mt-4">
                   <button

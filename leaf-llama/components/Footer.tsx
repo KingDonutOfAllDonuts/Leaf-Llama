@@ -16,14 +16,10 @@ const Footer = () => {
           <Link href={'/menu'} className='z-10 hover:text-gray-300 transition'>
             Menu
           </Link>
-          {/* make it so it copies email */}
-          <Link href={'/salads/caesar.jpg'} className='z-10 hover:text-gray-300 transition'>
-            Contact
-          </Link>
-          <Link href={'/'} className='z-10 hover:text-gray-300 transition'>
+          <Link href={'/locations'} className='z-10 hover:text-gray-300 transition'>
             Locations
           </Link>
-          <Link href={'/'} className='z-10 hover:text-gray-300 transition'>
+          <Link href={'/order'} className='z-10 hover:text-gray-300 transition'>
             Order
           </Link>
         </div>

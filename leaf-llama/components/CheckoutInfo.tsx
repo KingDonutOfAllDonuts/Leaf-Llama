@@ -6,6 +6,7 @@ import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import LoadingOverlay from './LoadingOverlay'
 
 const CheckoutInfo = () => {
   const [cart, setCart] =  useAtom(cartAtom)
@@ -220,6 +221,7 @@ const CheckoutInfo = () => {
         </div>
       </div>
       <OrderPlacedPopup orderResponse={orderIsFinished} onClose={closePopup} emptyCart={emptyCart}/>
+      <LoadingOverlay isLoading={submitLoading}/>
     </>
     
   )
