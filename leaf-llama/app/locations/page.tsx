@@ -60,19 +60,21 @@ const Locations = () => {
         <h1 className="w-full text-center text-5xl p-10 font-kaushan bg-white border-b-4 border-orange-500">
           Locations
         </h1>
-        <div className="flex flex-row h-[calc(100vh-85px)]">
+        <div className="flex flex-row h-[calc(100vh-85px)] ">
           {/* side bar of locaations */}
-          <div className="w-[200px] md:w-[300px] h-full overflow-y-scroll flex flex-col">
+          <div className="w-[120px] sm:w-[200px] md:w-[300px] h-full overflow-y-scroll overflow-x-hidden flex flex-col">
             {locations.map((location) => (
               <div
                 key={location.id}
-                className="border-b border-orange-300 p-4 py-7 mb-4"
+                className="border-b border-orange-300 p-0.5 sm:p-4 py-7 mb-4"
               >
-                <h3 className="text-green-700 font-bold uppercase text-xl mb-2">
+                <h3 className="text-green-700 font-bold uppercase text-base sm:text-xl mb-2">
                   {location.name}
                 </h3>
-                <p className=" text-blue-600 text-sm">(555) 555-5555</p>
-                <p className="">Open 24/7</p>
+                <p className=" text-blue-600 text-xs sm:text-sm">
+                  (555) 555-5555
+                </p>
+                <p className="text-xs">Open 24/7</p>
                 <div className="flex flex-col gap-2 mt-4">
                   <button
                     className="bg-green-500 hover:bg-green-400 text-white py-2 rounded text-sm font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
@@ -86,7 +88,7 @@ const Locations = () => {
           </div>
 
           {/* map */}
-          <div className="flex-1 h-full p-10 border bg-slate-100 border-orange-500">
+          <div className="flex-1 h-full p-2 sm:p-10 border bg-slate-100 border-orange-500">
             <Map locations={locations} selectedLocation={selectedLocation} />
           </div>
         </div>

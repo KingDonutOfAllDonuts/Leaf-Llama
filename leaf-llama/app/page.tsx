@@ -7,7 +7,7 @@ import About from "@/components/About";
 
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative overflow-x-hidden">
       <TopNavbar/>
       <Hero/>
       <About/>

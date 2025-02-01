@@ -30,11 +30,11 @@ const Hero = () => {
         <div className="absolute flex flex-col h-[100vh] items-center p-5 justify-end z-50 w-full text-center no-drag pointer-events-none">
           <TextGenerateEffect
             words="Lettuce Eat!"
-            className="text-7xl font-kaushan mb-5"
+            className="text-6xl font-kaushan mb-2"
           />
           <Link
             href={"/menu"}
-            className="px-8 py-2 rounded-md bg-orange-500 text-white font-bold w-fit transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-orange-500 pointer-events-auto"
+            className="px-8 py-2 mb-5 rounded-md bg-orange-500 text-white font-bold w-fit transition duration-200 hover:bg-white hover:text-black border-2 border-transparent hover:border-orange-500 pointer-events-auto"
           >
             View The Menu
           </Link>
@@ -47,7 +47,7 @@ const Hero = () => {
         alt=""
         className="object-cover w-screen h-screen opacity-50 absolute no-drag"
       />
-      <Canvas className="absolute h-full w-full">
+      <Canvas className="absolute h-full w-full touch-pan-y">
         <PerspectiveCamera fov={30} makeDefault position={[2, 2.5, 0]} />
         <OrbitControls
           enableZoom={false}

@@ -1,7 +1,7 @@
 "use client";
 import leaf from "@/public/leaf.png";
 import Image from "next/image";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -21,6 +21,17 @@ const Title = ({ top = false }) => {
       transition: { duration: 0.3 },
     });
   };
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    // Set dimensions only on the client side
+    if (typeof window !== "undefined") {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+  }, []);
 
   return (
     <div
@@ -43,9 +54,10 @@ const Title = ({ top = false }) => {
         <span
           className="inline-block"
           style={{
-            transform: top
-              ? "translate(-95px, -35px)"
-              : "translate(-60px, -20px)",
+            transform:
+              top && dimensions.width > 640
+                ? "translate(-95px, -35px)"
+                : "translate(-60px, -20px)",
           }}
         >
           <Image src={leaf} alt="" className={`w-6 h-6`} />

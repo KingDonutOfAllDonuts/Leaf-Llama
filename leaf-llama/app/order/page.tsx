@@ -92,13 +92,13 @@ const Order = () => {
       <div className="pt-[92px] w-full">
         <div className="flex flex-row mt-10">
           {/* side bar */}
-          <aside className="w-[100px] md:w-[200px] m-2 ml-10 rounded overflow-hidden">
+          <aside className="w-[100px] md:w-[200px] m-2 ml-2 md:ml-10 rounded overflow-hidden">
             <div className="w-[100px] md:w-[200px] border rounded border-gray-600 fixed top-1/2 transform -translate-y-1/2 flex flex-col items-start">
               {sections.map((section, index) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`md:pl-4 md:text-2xl mx-2 my-3 md:m-5 text-green-700 hover:text-green-500 transition-all   ${
+                  className={`md:pl-4 text-sm md:text-2xl mx-2 my-3 md:m-5 text-green-700 hover:text-green-500 transition-all   ${
                     activeSection === section ? "font-bold" : "font-normal"
                   }`}
                 >
@@ -112,14 +112,14 @@ const Order = () => {
                   onClick={toggleCartSidebar}
                   className="flex items-center justify-center w-1/2 text-xl p-2 md:ml-2 text-white bg-green-700 rounded-full hover:bg-green-600 hover:-translate-y-0.5 transition-all"
                 >
-                  <MdAddShoppingCart className="text-2xl" />
+                  <MdAddShoppingCart className="text-xl md:text-2xl" />
                   <span className="text-2xl font-medium max-md:hidden">
                     ({cart.length})
                   </span>
                 </button>
                 <button
                   onClick={toggleOrdersSidebar}
-                  className="flex items-center justify-center w-1/2 md:text-xl text-xs p-1 md:p-2 md:mr-2 text-white bg-gray-600 rounded-full hover:bg-gray-500 hover:-translate-y-0.5 transition-all"
+                  className="flex items-center justify-center w-1/2 md:text-xl text-xs p-0.5 md:p-2 md:mr-2 text-white bg-gray-600 rounded-full hover:bg-gray-500 hover:-translate-y-0.5 transition-all"
                 >
                   Orders
                 </button>
@@ -190,7 +190,7 @@ const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
       ref={(el) => (sectionRefs.current[index] = el) as any}
     >
       <FoodTitle title={title.toUpperCase()} />
-      <div className="grid grid-cols-3 lg:grid-cols-4 gap-7 w-full p-5 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5 w-full p-5 mb-10">
         {list.map((food, i) => (
           <FoodItem key={i} food={food} openPopup={openPopup} />
         ))}
@@ -201,8 +201,8 @@ const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
 
 const FoodTitle = ({ title }: { title: string }) => {
   return (
-    <div className="w-full px-28 pb-5">
-      <h1 className="text-center text-xl sm:text-3xl md:text-5xl font-kaushan p-2 w-full border-b-4 border-green-500 rounded-xl">
+    <div className="w-full px-5 md:px-28 pb-5">
+      <h1 className="w-full text-center text-xl sm:text-3xl md:text-5xl font-kaushan p-2 border-b-4 border-green-500 rounded-xl">
         {title}
       </h1>
     </div>

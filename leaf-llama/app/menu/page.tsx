@@ -105,7 +105,7 @@ const FoodItem = ({ food }: { food: any }) => {
         <Image
           src={food.img}
           alt=""
-          className="h-28 w-28 rounded-lg object-cover"
+          className="h-44 w-44 rounded-lg object-cover"
         />
 
         <div className="p-2">

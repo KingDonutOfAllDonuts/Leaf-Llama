@@ -84,7 +84,6 @@ const TimelineItem = ({ index, item }) => {
         // Calculate the card's center and viewport center
         const cardCenter = rect.top + rect.height / 2;
         const viewportCenter = windowHeight / 2;
-        console.log(cardCenter, viewportCenter);
         // Check if the card's center is close to the viewport's center
         if (cardCenter - viewportCenter < 100) {
           setIsInMiddle(true);
