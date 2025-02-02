@@ -28,13 +28,7 @@ export const handleAddOrder = async (cart, details) => {
 };
 
 export const handleGetOrders = async (orderIds) => {
-  return await handleAPI(
-    "get",
-    {
-      orderIds,
-    },
-    "post"
-  );
+  return await handleAPI("get", orderIds, "post");
 };
 
 export const getAllOrders = async () => {
