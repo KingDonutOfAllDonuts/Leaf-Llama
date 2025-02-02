@@ -34,25 +34,18 @@ const getVegetableImage = (vegetable) => {
 };
 
 const ManageNavbar = ({ account }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const router = useRouter();
 
   const toggleProfileMenu = () => setIsProfileMenuOpen(!isProfileMenuOpen);
   const handleProfileClick = () => {
     console.log("Navigating to profile information...");
-    // Navigate to profile info page
   };
+  1;
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     router.push("/careers");
-    // Add logout logic
-  };
-  console.log(account);
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
   };
   return (
     <nav className="z-[900] flex h-[85px] items-center justify-between px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
@@ -62,9 +55,9 @@ const ManageNavbar = ({ account }) => {
 
       <Title top={false} />
 
-      {/* Menu Icon */}
+      {/* menu Icon */}
       <div className="flex flex-row">
-        {/* Profile Dropdown */}
+        {/* pr Dropdown */}
         {account ? (
           <Image
             src={getVegetableImage(account.vegetable)}
@@ -79,6 +72,28 @@ const ManageNavbar = ({ account }) => {
           />
         )}
         <MiniNavbarMenu hidden={false} className=" ml-2" />
+      </div>
+      <div
+        className={`absolute right-14 top-[80px] w-[200px] bg-white rounded-lg shadow-lg border z-[1000] transition-all duration-300 ease-in-out ${
+          isProfileMenuOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-5 pointer-events-none"
+        }`}
+      >
+        <ul className="text-black text-sm font-medium">
+          <li
+            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+            onClick={handleProfileClick}
+          >
+            Profile Information
+          </li>
+          <li
+            className="px-4 py-2 hover:bg-red-100 transition-all cursor-pointer border-t text-red-950"
+            onClick={handleLogout}
+          >
+            Logout
+          </li>
+        </ul>
       </div>
     </nav>
   );

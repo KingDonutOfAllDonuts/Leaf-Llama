@@ -1,8 +1,8 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 
 import Model from "@/public/Salad";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import {
   Environment,
   OrbitControls,
@@ -16,6 +16,16 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    const hasTouch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches;
+    setIsTouch(hasTouch);
+  }, []);
+  console.log(isTouch);
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,14 +57,18 @@ const Hero = () => {
         alt=""
         className="object-cover w-screen h-screen opacity-50 absolute no-drag"
       />
-      <Canvas className="absolute h-full w-full touch-pan-y">
+      <Canvas className="absolute h-full w-full">
         <PerspectiveCamera fov={30} makeDefault position={[2, 2.5, 0]} />
-        <OrbitControls
-          enableZoom={false}
-          enablePan={false}
-          maxPolarAngle={Math.PI / 3}
-          minPolarAngle={Math.PI / 3}
-        />
+        {!isTouch ? (
+          <OrbitControls
+            enableZoom={false}
+            enablePan={false}
+            maxPolarAngle={Math.PI / 3}
+            minPolarAngle={Math.PI / 3}
+          />
+        ) : (
+          ""
+        )}
         <ambientLight />
         <Suspense fallback={"loading"}>
           <Model position={[0, -1.85, 0]} />

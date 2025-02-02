@@ -141,7 +141,6 @@ const OrdersDisplay = ({ orders, completed, onChecked }) => {
       <p>No orders in progress.</p>
     );
   }
-  console.log(orders);
   return (
     <div>
       {orders.map((order, index) => (
@@ -205,7 +204,6 @@ const OrdersDisplay = ({ orders, completed, onChecked }) => {
                               {Array.isArray(v) && v.length != 0
                                 ? "- " +
                                   v.map((vv, i) => {
-                                    console.log(vv);
                                     return vv + (i != v.length - 1 ? ", " : "");
                                   })
                                 : typeof v == "string"

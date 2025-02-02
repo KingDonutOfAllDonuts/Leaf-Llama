@@ -8,6 +8,8 @@ import Link from "next/link";
 import leaf from "@/public/leaf.png";
 import copy from "copy-to-clipboard";
 import MiniNavbarMenu from "../MiniNavbarMenu";
+import { useAtom } from "jotai";
+import { navbarAtom } from "@/lib/store";
 
 const Navbar = ({ top = false }) => {
   const [faqIsOpen, setFAQ] = useState(false);
@@ -18,7 +20,7 @@ const Navbar = ({ top = false }) => {
     }, 3000);
   }, [copied]);
 
-  const [showNavbar, setShowNavbar] = useState(true);
+  const [showNavbar, setShowNavbar] = useAtom(navbarAtom);
   const lastScrollY = useRef(0);
 
   useEffect(() => {

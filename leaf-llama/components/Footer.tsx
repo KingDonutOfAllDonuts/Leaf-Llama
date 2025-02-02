@@ -26,10 +26,13 @@ const Footer = () => {
             Order
           </Link>
         </div>
-        <button className="flex items-center shadow-[0_0_0_1px_#000000_inset] px-4 py-2 space-x-2 text-white rounded-lg transform hover:-translate-y-0.5 transition duration-400">
+        <a
+          href="https://github.com/KingDonutOfAllDonuts/Leaf-Llama"
+          className="flex items-center shadow-[0_0_0_1px_#000000_inset] px-4 py-2 space-x-2 text-white rounded-lg transform hover:-translate-y-0.5 transition duration-400"
+        >
           <FaGithub size={20} />
           <span className="text-sm">Github repo</span>
-        </button>
+        </a>
       </div>
 
       {/* not real */}
