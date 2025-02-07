@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbars/Navbar";
+import Link from "next/link";
 import React from "react";
 const references = [
   {
@@ -247,6 +248,21 @@ const References = () => {
         <h1 className="w-full text-center text-5xl p-10 font-kaushan bg-white">
           References
         </h1>
+        <div className="flex flex-row">
+          <Link
+            className="p-2 underline text-blue-700 hover:text-blue-500"
+            href="worklog.pdf"
+          >
+            worklog
+          </Link>
+          <Link
+            className="p-2 underline text-blue-700 hover:text-blue-500"
+            href="copyright.pdf"
+          >
+            copyright
+          </Link>
+        </div>
+
         <div className="border border-gray-300 rounded-lg overflow-hidden">
           <table className="w-full text-left">
             <thead className="bg-green-200">

@@ -16,8 +16,9 @@ const CheckoutNavbar = () => {
         <HiMiniArrowLeftEndOnRectangle />
         <span>Back & Change Order</span>
       </Link>
-
-      <Title top={false} />
+      <div className="max-md:hidden">
+        <Title top={false} />
+      </div>
 
       <MiniNavbarMenu hidden={false} />
     </nav>

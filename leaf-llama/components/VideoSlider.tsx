@@ -89,7 +89,7 @@ export const VideoSlider = ({ items }: { items: Slide[] }) => {
   return (
     <div className="flex flex-row">
       <div
-        className="relative h-[215px] w-[300px] lg:h-[265px] lg:w-[390px] xl:h-[325px] xl:w-[500px] overflow-hidden rounded-3xl rounded-r-none"
+        className="relative h-[215px] w-[300px] lg:h-[265px] lg:w-[350px] xl:h-[325px] xl:w-[500px] overflow-hidden rounded-3xl rounded-r-none"
         ref={cardStackRef}
       >
         {slides.map((slide, index) => (
@@ -150,12 +150,12 @@ export const VideoSlider = ({ items }: { items: Slide[] }) => {
           </motion.div>
         ))}
       </div>
-      <div
+      <button
         className="flex justify-center items-center bg-green-500 border-2 w-[50px] border-gray-700/55 border-l-0 p-1 hover:cursor-pointer z-50 hover:bg-green-500/70  ease-out transition-all duration-75 hover:w-[60px] hover:justify-end hover:text-black"
         onClick={handleVideoEnd}
       >
         <FaArrowRight className="h-[50px] w-[50px] text-gray-600" />
-      </div>
+      </button>
     </div>
   );
 };

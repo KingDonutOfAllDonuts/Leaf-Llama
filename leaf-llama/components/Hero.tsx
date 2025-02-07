@@ -34,7 +34,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="no-drag border-b-4 border-orange-600 h-screen w-screen bg-gradient-to-b from-blue-400 to-blue-200 overflow-hidden">
+    <div className="border-b-4 border-orange-600 h-screen w-screen bg-gradient-to-b from-blue-400 to-blue-200 overflow-hidden">
       <div className="absolute h-full w-full flex justify-end items-end"></div>
       {displayText ? (
         <div className="absolute flex flex-col h-[100vh] items-center p-5 justify-end z-50 w-full text-center no-drag pointer-events-none">

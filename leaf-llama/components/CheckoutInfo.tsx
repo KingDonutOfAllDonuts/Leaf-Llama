@@ -93,7 +93,7 @@ const CheckoutInfo = () => {
         {/* pricing information */}
         <div className="px-5 flex justify-center mb-5">
           {/* form */}
-          <div className="w-[300px] mx-[100px]">
+          <div className="w-1/2 mx-[100px]">
             <h1 className="text-xl text-green-800 mb-4">Order Details</h1>
             <div className="flex flex-col space-y-4">
               {/* Pickup or Table Service */}
@@ -205,7 +205,7 @@ const CheckoutInfo = () => {
           <div className="mb-5">
             <h1 className="text-xl text-green-800">Your Cart</h1>
             {/* items */}
-            <div className="flex flex-col w-[400px]">
+            <div className="flex flex-col w-1/2">
               {cart.map((cartFood, i) => {
                 cartPrice += cartFood.data.price * cartFood.quantity;
                 return (

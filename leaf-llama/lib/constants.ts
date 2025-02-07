@@ -3,15 +3,15 @@ export const navButtons: { [id: string]: string } = {
   ORDER: "order",
   LOCATIONS: "locations",
   JOIN_THE_TEAM: "careers",
-  FAQ: "faq",
+  REFERENCES: "faq",
   OUR_STORY: "story",
 };
 
 export const faqNav = {
   REFERENCES_PAGE: "references",
   CONTACT: "contact",
-  WORK_LOG: "/worklog.pdf",
-  COPYRIGHT_CHECKLIST: "/copyright.pdf",
+  WORK_LOG: "worklog.pdf",
+  COPYRIGHT_CHECKLIST: "copyright.pdf",
 };
 
 export const foodCatagories = ["all", "salads", "smoothies", "sides", "others"];

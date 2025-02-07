@@ -49,7 +49,7 @@ const ManageNavbar = ({ account }) => {
   };
   return (
     <nav className="z-[900] flex h-[85px] items-center justify-between px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
-      <h2 className="text-2xl text-gray-800 font-mono tracking-wide mr-5">
+      <h2 className="text-2xl text-gray-800 font-mono tracking-wide mr-5 max-sm:hidden">
         Manage Orders
       </h2>
 
@@ -62,7 +62,7 @@ const ManageNavbar = ({ account }) => {
           <Image
             src={getVegetableImage(account.vegetable)}
             alt={""}
-            className="h-[50px] mt-[20px] w-[50px] ml-32 no-drag cursor-pointer hover:opacity-75 transition-all hover:-translate-y-0.5 rounded-full aspect-square border border-orange-500"
+            className="h-[50px] mt-[20px] w-[50px] ml-10 no-drag cursor-pointer hover:opacity-75 transition-all hover:-translate-y-0.5 rounded-full aspect-square border border-orange-500"
             onClick={toggleProfileMenu}
           />
         ) : (

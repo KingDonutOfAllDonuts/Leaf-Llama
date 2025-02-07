@@ -39,6 +39,7 @@ const Footer = () => {
       <div className="mt-6 text-center text-xs">
         <p>
           &copy; {new Date().getFullYear()} Leaf Llama. All rights reserved.
+          (This is a ficticious website.)
         </p>
       </div>
     </footer>
