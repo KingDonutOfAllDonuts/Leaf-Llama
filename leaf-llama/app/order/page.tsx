@@ -7,9 +7,11 @@ import { useAtom } from "jotai";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { MdAddShoppingCart } from "react-icons/md";
-import { cartAtom } from "@/lib/store";
+import { FaExclamation } from "react-icons/fa";
+import { cartAtom, ordersAtom } from "@/lib/store";
 import CartSidebar from "@/components/Sidebars/CartSidebar";
 import OrdersSidebar from "@/components/Sidebars/OrdersSidebar";
+import { handleGetOrders } from "../apiActions";
 
 const yOffset = -100;
 const sections = ["SALADS", "SMOOTHIES", "SIDES", "OTHERS"];
@@ -19,6 +21,30 @@ const Order = () => {
   const [cartSidebarOpen, setCartSidebar] = useState(false);
   const [ordersSidebarOpen, setOrdersSidebar] = useState(false);
   const [cart, setCart] = useAtom(cartAtom);
+
+  const [orderIds, setOrderIds] = useAtom(ordersAtom);
+  const [orders, setOrders] = useState(null);
+
+  useEffect(() => {
+    if (orderIds.length > 0 && orders == null) {
+      handleGetOrders(orderIds)
+        .then((result) => {
+          if (!result) {
+            console.log("fail");
+            return;
+          }
+          const ids = [];
+          for (const order of result) {
+            ids.push(order._id);
+          }
+          setOrderIds(ids);
+          setOrders(result);
+        })
+        .catch((err) => console.log(err));
+    } else if (orderIds.length == 0 && orders == null) {
+      setOrders([]);
+    }
+  }, [ordersSidebarOpen, orders]);
 
   const toggleCartSidebar = () => {
     setCartSidebar((prev) => {
@@ -121,7 +147,12 @@ const Order = () => {
                   onClick={toggleOrdersSidebar}
                   className="flex items-center justify-center w-1/2 md:text-xl text-xs p-0.5 md:p-2 md:mr-2 text-white bg-gray-600 rounded-full hover:bg-gray-500 hover:-translate-y-0.5 transition-all"
                 >
-                  Orders
+                  {orders != null && orders.length > 0 ? (
+                    <FaExclamation className="absolute ml-9 mb-5  md:ml-16 md:mb-6 text-white bg-red-500 p-0.5 md:p-1 rounded-full" />
+                  ) : (
+                    ""
+                  )}
+                  <p className="z-10">Orders</p>
                 </button>
               </div>
             </div>
@@ -170,7 +201,8 @@ const Order = () => {
       <OrdersSidebar
         ordersSidebarOpen={ordersSidebarOpen}
         toggleOrdersSidebar={toggleOrdersSidebar}
-        openPopup={openPopup}
+        orders={orders}
+        setOrders={setOrders}
       />
       <AddToCartPopup
         isOpen={popupIsOpen}
@@ -221,7 +253,7 @@ const FoodItem = ({ food, openPopup }) => {
         className="w-full object-cover aspect-square"
       />
       <div className="w-full flex justify-end">
-        <MdAddShoppingCart className="-mt-4 mr-1.5 -mb-3 bg-green-500 text-white rounded-full p-2 shadow-lg cursor-pointer w-10 h-10"></MdAddShoppingCart>
+        <MdAddShoppingCart className="-mt-6 mr-1.5 -mb-3 bg-green-500 text-white rounded-full border border-green-950 p-1 md:p-2 text-xs md:text-base shadow-lg cursor-pointer w-7 md:w-10 h-7 md:h-10"></MdAddShoppingCart>
       </div>
 
       <div className="pb-2">

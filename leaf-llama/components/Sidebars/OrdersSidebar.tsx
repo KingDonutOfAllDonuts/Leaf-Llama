@@ -11,37 +11,14 @@ import RefreshButton from "../RefreshButton";
 const OrdersSidebar = ({
   ordersSidebarOpen,
   toggleOrdersSidebar,
-  openPopup,
+  orders,
+  setOrders,
 }) => {
-  const [orderIds, setOrderIds] = useAtom(ordersAtom);
-  const [orders, setOrders] = useState(null);
-
   const [openItemIndex, setOpenItemIndex] = useState(null);
-
   const toggleDropdown = (index) => {
     setOpenItemIndex(openItemIndex === index ? null : index);
   };
-
-  useEffect(() => {
-    if (orderIds.length > 0 && ordersSidebarOpen && orders == null) {
-      handleGetOrders(orderIds)
-        .then((result) => {
-          if (!result) {
-            console.log("fail");
-            return;
-          }
-          const ids = [];
-          for (const order of result) {
-            ids.push(order._id);
-          }
-          setOrderIds(ids);
-          setOrders(result);
-        })
-        .catch((err) => console.log(err));
-      console.log("hello");
-    }
-    console.log(orderIds);
-  }, [ordersSidebarOpen, orders]);
+  console.log(orders);
   return (
     <Sidebar isOpen={ordersSidebarOpen} toggleSideBar={toggleOrdersSidebar}>
       {/* top bar */}
