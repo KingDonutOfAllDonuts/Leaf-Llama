@@ -166,12 +166,12 @@ const CheckoutInfo = () => {
                 <label className="block text-gray-700 font-medium mb-2 md:text-base text-sm">
                   Tip:
                 </label>
-                <div className="flex space-x-4">
+                <div className="flex space-x-2 md:space-x-4">
                   {[0, 0.1, 0.15, 0.2].map((percentage) => (
                     <button
                       key={percentage}
                       type="button"
-                      className={`md:py-2 md:text-base text-xs px-2 py-1 md:px-4 rounded transition-all ${
+                      className={`md:text-base text-xs px-2 py-1 md:py-4 md:px-4 rounded transition-all ${
                         tipPercentage === percentage
                           ? "bg-green-800 text-white"
                           : "bg-gray-200 text-gray-700 hover:bg-gray-300"
