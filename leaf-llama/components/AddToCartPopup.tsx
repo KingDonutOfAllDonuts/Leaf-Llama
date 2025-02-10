@@ -96,7 +96,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-lg shadow-lg md:w-[600px] w-[450px] h-full relative"
+            className="bg-white rounded-lg shadow-lg md:w-[600px] w-[450px] h-[calc(100%-50px)] relative"
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}

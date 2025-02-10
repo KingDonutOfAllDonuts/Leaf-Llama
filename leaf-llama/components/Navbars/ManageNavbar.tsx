@@ -82,12 +82,6 @@ const ManageNavbar = ({ account }) => {
       >
         <ul className="text-black text-sm font-medium">
           <li
-            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-            onClick={handleProfileClick}
-          >
-            Profile Information
-          </li>
-          <li
             className="px-4 py-2 hover:bg-red-100 transition-all cursor-pointer border-t text-red-950"
             onClick={handleLogout}
           >

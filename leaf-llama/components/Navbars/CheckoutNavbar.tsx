@@ -19,8 +19,9 @@ const CheckoutNavbar = () => {
       <div className="max-md:hidden">
         <Title top={false} />
       </div>
-
-      <MiniNavbarMenu hidden={false} />
+      <div className="-ml-16">
+        <MiniNavbarMenu hidden={false} />
+      </div>
     </nav>
   );
 };

@@ -89,16 +89,18 @@ const CheckoutInfo = () => {
   let cartPrice = 0;
   return (
     <>
-      <div className="flex w-full justify-center space-x-32 px-20">
+      <div className="flex w-full justify-center space-x-32 px-5 md:px-20">
         {/* pricing information */}
         <div className="px-5 flex justify-center mb-5">
           {/* form */}
-          <div className="w-1/2 mx-[100px]">
-            <h1 className="text-xl text-green-800 mb-4">Order Details</h1>
+          <div className="w-1/2 mx-[25px] md:mx-[100px]">
+            <h1 className="text-base md:text-xl text-green-800 mb-4">
+              Order Details
+            </h1>
             <div className="flex flex-col space-y-4">
               {/* Pickup or Table Service */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block md:text-base text-sm text-gray-700 font-medium mb-2">
                   Service Type:
                 </label>
                 <select
@@ -107,21 +109,25 @@ const CheckoutInfo = () => {
                   value={serviceType}
                   onChange={(e) => setServiceType(e.target.value)}
                 >
-                  <option value="pickup">Pickup</option>
-                  <option value="dineIn">Dine In</option>
+                  <option value="pickup" className="md:text-base text-sm">
+                    Pickup
+                  </option>
+                  <option value="dineIn" className="md:text-base text-sm">
+                    Dine In
+                  </option>
                 </select>
               </div>
 
               {/* Table Number (conditional on dine-in) */}
               {serviceType === "dineIn" && (
                 <div>
-                  <label className="block text-gray-700 font-medium mb-2">
+                  <label className="block md:text-base text-sm text-gray-700 font-medium mb-2">
                     Table Number:
                   </label>
                   <input
                     type="number"
                     placeholder="Enter table number"
-                    className={`border border-gray-300 p-2 rounded w-full ${
+                    className={`border md:text-base text-sm border-gray-300 p-2 rounded w-full ${
                       incompleteOptions.includes("tableNumber")
                         ? "border-4 border-red-500 rounded p-2"
                         : ""
@@ -138,13 +144,13 @@ const CheckoutInfo = () => {
 
               {/* Contact Information */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 font-medium mb-2 md:text-base text-sm">
                   Contact Information:
                 </label>
                 <input
                   type="text"
                   placeholder="Enter Contact Information"
-                  className={`border border-gray-300 p-2 rounded w-full ${
+                  className={`border border-gray-300 p-2 rounded w-full md:text-base text-sm ${
                     incompleteOptions.includes("contact")
                       ? "border-red-500 border-4 rounded p-2"
                       : ""
@@ -157,7 +163,7 @@ const CheckoutInfo = () => {
 
               {/* Tip Selection */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block text-gray-700 font-medium mb-2 md:text-base text-sm">
                   Tip:
                 </label>
                 <div className="flex space-x-4">
@@ -165,7 +171,7 @@ const CheckoutInfo = () => {
                     <button
                       key={percentage}
                       type="button"
-                      className={`py-2 px-4 rounded transition-all ${
+                      className={`md:py-2 md:text-base text-xs px-2 py-1 md:px-4 rounded transition-all ${
                         tipPercentage === percentage
                           ? "bg-green-800 text-white"
                           : "bg-gray-200 text-gray-700 hover:bg-gray-300"
@@ -180,12 +186,12 @@ const CheckoutInfo = () => {
 
               {/* Additional Notes */}
               <div>
-                <label className="block text-gray-700 font-medium mb-2">
+                <label className="block md:text-base text-sm text-gray-700 font-medium mb-2">
                   Additional Comments:
                 </label>
                 <textarea
                   placeholder="Enter any special requests or comments"
-                  className="border border-gray-300 p-2 rounded w-full"
+                  className="border md:text-base text-sm border-gray-300 p-2 rounded w-full"
                   rows={4}
                   value={comments}
                   onChange={(e) => setComments(e.target.value)}
@@ -194,7 +200,7 @@ const CheckoutInfo = () => {
 
               {/* Submit Button */}
               <button
-                className="bg-green-800 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+                className="bg-green-800 text-white py-2 px-4 rounded md:text-base text-sm hover:bg-green-700 transition"
                 onClick={validateOrder}
               >
                 {submitLoading ? "Order is Being Placed....." : "Place Order"}
@@ -203,9 +209,9 @@ const CheckoutInfo = () => {
           </div>
 
           <div className="mb-5">
-            <h1 className="text-xl text-green-800">Your Cart</h1>
+            <h1 className="text-base md:text-xl text-green-800">Your Cart</h1>
             {/* items */}
-            <div className="flex flex-col w-1/2">
+            <div className="flex flex-col">
               {cart.map((cartFood, i) => {
                 cartPrice += cartFood.data.price * cartFood.quantity;
                 return (
@@ -213,21 +219,23 @@ const CheckoutInfo = () => {
                     className="flex gap-2 border-b-2 py-1.5 px-2 transition-all w-full"
                     key={i}
                   >
-                    <p className="text-xl text-gray-500">{cartFood.quantity}</p>
+                    <p className="text-base md:text-xl text-gray-500">
+                      {cartFood.quantity}
+                    </p>
                     <div className="flex flex-col w-full">
                       <div className="flex justify-between w-full">
-                        <h3 className="font-medium text-black text-lg">
+                        <h3 className="font-medium md:text-lg text-sm text-black">
                           {cartFood.data.name}
                         </h3>
                         <div className="flex">
-                          <h4 className="text-gray-500 text-sm">
+                          <h4 className="text-gray-500 text-xs md:text-sm">
                             {formatPrice(
                               cartFood.data.price * cartFood.quantity
                             )}
                           </h4>
                         </div>
                       </div>
-                      <p className="text-sm text-gray-500 p-1">
+                      <p className="text-xs md:text-sm text-gray-500 p-1">
                         {cartFood.data.desc}
                       </p>
                     </div>
@@ -235,26 +243,26 @@ const CheckoutInfo = () => {
                 );
               })}
               <div className="flex justify-between border-b-2 py-4 items-center px-2 transition-all w-full">
-                <h3 className="text-lg">Cart Price: </h3>
+                <h3 className="text-base md:text-lg">Cart Price: </h3>
                 <h4 className="text-gray-500 text-sm">
                   {formatPrice(cartPrice)}
                 </h4>
               </div>
               <div className="flex justify-between py-2 items-center px-2 transition-all w-full">
-                <h3 className="">Tax: </h3>
-                <h4 className="text-gray-500 text-sm">
+                <h3 className="text-base md:text-lg">Tax: </h3>
+                <h4 className="text-gray-500 text-xs md:text-sm">
                   {formatPrice(cartPrice * 0.0825)}
                 </h4>
               </div>
               <div className="flex justify-between border-b-2 py-2 items-center px-2 transition-all w-full">
-                <h3 className="">Tip: </h3>
+                <h3 className="text-base md:text-lg">Tip: </h3>
                 <h4 className="text-gray-500 text-sm">
                   {formatPrice(cartPrice * tipPercentage)}({tipPercentage * 100}
                   %)
                 </h4>
               </div>
               <div className="flex justify-between border-b-2 py-3 items-center px-2 transition-all w-full">
-                <h3 className="">Total: </h3>
+                <h3 className="text-base md:text-lg">Total: </h3>
                 <h4 className="text-gray-500 text-sm">
                   {formatPrice(
                     Math.round(cartPrice * tipPercentage * 100) / 100 +
