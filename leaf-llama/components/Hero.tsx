@@ -26,6 +26,11 @@ const Hero = () => {
     setIsTouch(hasTouch);
   }, []);
   console.log(isTouch);
+  // const camRef = useRef<any>();
+  // useEffect(() => {
+  //   camRef.current.lookAt(0, -1.85, 0);
+  //   console.log(camRef.current);
+  // }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -57,18 +62,22 @@ const Hero = () => {
         alt=""
         className="object-cover w-screen h-screen opacity-50 absolute no-drag"
       />
-      <Canvas className="absolute h-full w-full">
-        <PerspectiveCamera fov={30} makeDefault position={[2, 2.5, 0]} />
-        {!isTouch ? (
+      <Canvas className={`absolute h-full w-full pointer-events-none`}>
+        <PerspectiveCamera
+          fov={30}
+          makeDefault
+          position={[2, 2.5, 0]}
+          onUpdate={(cam) => cam.lookAt(0, 0, 0)} // Directly set the target
+        />
+        {!isTouch && (
           <OrbitControls
             enableZoom={false}
             enablePan={false}
             maxPolarAngle={Math.PI / 3}
             minPolarAngle={Math.PI / 3}
           />
-        ) : (
-          ""
         )}
+
         <ambientLight />
         <Suspense fallback={"loading"}>
           <Model position={[0, -1.85, 0]} />
