@@ -1,6 +1,8 @@
 "use client";
 import Map from "@/components/Map";
 import Navbar from "@/components/Navbars/Navbar";
+import { navbarAtom } from "@/lib/store";
+import { useAtomValue } from "jotai";
 import React, { useState } from "react";
 
 const locations = [
@@ -53,6 +55,8 @@ const Locations = () => {
     setSelectedLocation(location.position);
   };
 
+  const showNavbar = useAtomValue(navbarAtom);
+
   return (
     <div className="w-full relative flex flex-col">
       <Navbar />
@@ -60,15 +64,14 @@ const Locations = () => {
         <h1 className="w-full text-center text-5xl p-10 font-kaushan bg-white border-b-4 border-orange-500">
           Locations
         </h1>
-        <div className="flex flex-row h-[calc(100vh-85px)] ">
-          {/* side bar of locaations */}
-          <div className="w-[120px] sm:w-[200px] md:w-[300px] h-full overflow-y-scroll overflow-x-hidden flex flex-col">
-            {locations.map((location) => (
+        <div className="w-full flex flex-row space-x-5">
+          <div className="flex flex-col">
+            {locations.map((location, i) => (
               <div
                 key={location.id}
-                className="border-b border-orange-300 p-0.5 sm:p-4 py-7 mb-4"
+                className={`${i != locations.length - 1 ? "border-b-2" : ""} border-orange-300 p-0.5 mx-2 sm:p-4 py-7 mb-4 w-[100px] sm:w-[175px] md:w-[275px] lg::w-[350px]`}
               >
-                <h3 className="text-green-700 font-bold uppercase text-base sm:text-xl mb-2">
+                <h3 className="text-green-700 font-bold uppercase text-xs sm:text-xl mb-2">
                   {location.name}
                 </h3>
                 <p className=" text-blue-600 text-xs sm:text-sm">
@@ -86,10 +89,17 @@ const Locations = () => {
               </div>
             ))}
           </div>
-
-          {/* map */}
-          <div className="flex-1 h-full p-2 sm:p-10 border bg-slate-100 border-orange-500">
-            <Map locations={locations} selectedLocation={selectedLocation} />
+          <div className="flex-1">
+            <div
+              className={`flex-1 py-20 ${showNavbar ? "translate-y-[45px]" : ""} transition-all duration-300 sm:px-4 md:px-6 sm:py-14 h-screen sticky top-0 rounded-lg`}
+            >
+              <div className="w-full h-full px-4 py-4 border-2 rounded-lg bg-gray-100 border-orange-300 overflow-hidden">
+                <Map
+                  locations={locations}
+                  selectedLocation={selectedLocation}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

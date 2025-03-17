@@ -57,66 +57,58 @@ const sustainabilityCards = [
 
 const AboutSection = () => {
   return (
-    <section className="bg-green-800 py-12">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 space-y-20 m-5">
+    <section className="bg-green-700 ">
+      <div className="container mx-auto">
         {/* FARM TO TABLE */}
-        <div className="flex flex-wrap items-center">
-          <div className="w-full lg:w-1/2 px-6">
-            <h2 className="text-3xl font-bold text-green-100 mb-4">
-              Organic Farm-to-Table
-            </h2>
-            <p className="text-sm xl:text-lg text-gray-200">
-              We pride ourselves on sourcing ingredients directly from local
-              farms to ensure every dish is as fresh and awesome as possible. By
-              connecting with local farmers, we support the community while
-              bringing you food that is good for you and the environment.
-            </p>
-          </div>
-          {/* stack */}
-          <div className="flex-1">
-            <VideoSlider items={farmToTableCards} />
-          </div>
-        </div>
+        <AboutItem
+          title={"Organic Farm-to-Table"}
+          text={
+            "We pride ourselves on sourcing ingredients directly from local farms to ensure every dish is as fresh and awesome as possible. By connecting with local farmers, we support the community while bringing you food that is good for you and the environment."
+          }
+          items={farmToTableCards}
+          index={0}
+        />
 
-        {/* Preperation */}
-        <div className="flex flex-wrap items-center flex-row-reverse">
-          <div className="w-full lg:w-1/2 px-6">
-            <h2 className="text-3xl font-bold text-green-100 mb-4">
-              Ethical Preparation Processes
-            </h2>
-            <p className="text-lg text-gray-200">
-              Our chefs take great care in preparing every meal with love and
+        <AboutItem
+          title={"Ethical Preparation Processes"}
+          text="Our chefs take great care in preparing every meal with love and
               attention to detail. From using zero-waste methods to crafting
               dishes by hand, we ensure that every bite is both ethical and
-              delicious.
-            </p>
-          </div>
-          {/* stack */}
-          <div className="flex-1">
-            <VideoSlider items={preperationCards} />
-          </div>
-        </div>
+              delicious."
+          items={preperationCards}
+          index={1}
+        />
 
-        {/* Sustainability */}
-        <div className="flex flex-wrap items-center rounded">
-          <div className="w-full lg:w-1/2 px-6">
-            <h2 className="text-3xl font-bold text-green-100 mb-4">
-              Commitment to Sustainability
-            </h2>
-            <p className="text-lg text-gray-200">
-              Sustainability is at the heart of everything we do. From using
+        <AboutItem
+          title={"Commitment to Sustainability"}
+          text="Sustainability is at the heart of everything we do. From using
               biodegradable packaging to energy-efficient practices, we’re
               dedicated to protecting the planet while serving wholesome,
-              plant-based food.
-            </p>
-          </div>
-          {/* stack */}
-          <div className="flex-1">
-            <VideoSlider items={sustainabilityCards} />
-          </div>
-        </div>
+              plant-based food."
+          items={farmToTableCards}
+          index={2}
+        />
+
+        {/* Sustainability */}
       </div>
     </section>
+  );
+};
+
+const AboutItem = ({ title, text, items, index }) => {
+  return (
+    <div
+      className={`flex ${index % 2 == 0 ? "flex-row" : "flex-row-reverse"} items-center h-[400px]`}
+    >
+      <div className="w-full lg:w-1/2 px-10">
+        <h2 className="text-4xl text-green-100 mb-4">{title}</h2>
+        <p className="text-sm font-lora xl:text-lg text-gray-200">{text}</p>
+      </div>
+      {/* stack */}
+      <div className="flex-1 bg-red-200 h-full">
+        <VideoSlider items={items} />
+      </div>
+    </div>
   );
 };
 

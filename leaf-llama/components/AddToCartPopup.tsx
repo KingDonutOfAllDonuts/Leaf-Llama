@@ -5,16 +5,22 @@ import Image from "next/image";
 import QuantitySelector from "./QuantitySelector";
 import { useEffect, useRef, useState } from "react";
 import { optionTypes } from "@/lib/constants";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { navbarAtom } from "@/lib/store";
 
 const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [incompleteOptions, setIncompleteOptions] = useState([]);
-  const showNavbar = useAtomValue(navbarAtom);
+  const [showNavbar, setShowNavbar] = useAtom(navbarAtom);
 
   const optionRefs = useRef({});
-
+  useEffect(() => {
+    if (isOpen && showNavbar && foodData) {
+      console.log("hello");
+      console.log(isOpen);
+      setShowNavbar(false);
+    }
+  }, [isOpen, showNavbar, setShowNavbar, foodData]);
   const handleOptionChange = (optionName, value, isMultiple) => {
     setSelectedOptions((prev) => {
       if (isMultiple) {
@@ -89,14 +95,14 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
     <AnimatePresence>
       {isOpen && foodData != null && (
         <motion.div
-          className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-all duration-300 ${showNavbar ? "mt-[85px]" : ""}`}
+          className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-all duration-300 z-[1000] ${showNavbar ? "mt-[85px]" : ""}`}
           style={{ height: showNavbar ? "calc(100vh - 85px)" : "100vh" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-lg shadow-lg md:w-[600px] w-[450px] h-[calc(100%-50px)] relative"
+            className="bg-white rounded-lg shadow-lg md:w-[600px] w-[450px] h-[calc(100%-50px)] relative flex flex-col" // Added flex-col
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 50, opacity: 0 }}
@@ -110,7 +116,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
               >
                 &times;
               </button>
-              <h3 className="w-full text-2xl h-full text-center align-middle leading-10 font-kaushan text-green-800">
+              <h3 className="w-full font-lora text-2xl h-full text-center align-middle leading-10 text-green-800">
                 {foodData.name}
               </h3>
             </div>
@@ -188,17 +194,18 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
                       </div>
                     );
                   })}
-
-                {/* Add to Cart Button */}
-                <div className="flex gap-2 mt-5">
-                  <button
-                    onClick={() => validateAndSubmit()}
-                    className="w-full bg-green-500 text-white py-2 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-200"
-                  >
-                    Add to Cart - {formatPrice(foodData.price * quantity)}
-                  </button>
-                  <QuantitySelector value={quantity} onChange={setQuantity} />
-                </div>
+              </div>
+            </div>
+            {/* Add to Cart Button */}
+            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 mt-auto">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => validateAndSubmit()}
+                  className="w-full bg-green-500 text-white py-2 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-200"
+                >
+                  Add to Cart - {formatPrice(foodData.price * quantity)}
+                </button>
+                <QuantitySelector value={quantity} onChange={setQuantity} />
               </div>
             </div>
           </motion.div>

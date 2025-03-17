@@ -1,18 +1,35 @@
-import {Roboto, Kaushan_Script} from 'next/font/google'
+import {
+  Lora,
+  Kaushan_Script,
+  Varela_Round,
+  Poor_Story,
+} from "next/font/google";
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-roboto',
-})
+const lora = Lora({
+  subsets: ["latin"],
+  weight: "variable",
+  variable: "--font-lora",
+});
+
+const poor = Poor_Story({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-poor",
+});
+
+const varela = Varela_Round({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-varela",
+});
 
 const kaushan = Kaushan_Script({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-kaushan',
-})
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-kaushan",
+});
 
-
-
-export const robotoVar = roboto.variable
-export const kaushanVar = kaushan.variable
+export const loraVar = lora.variable;
+export const kaushanVar = kaushan.variable;
+export const varelaVar = varela.variable;
+export const poorVar = poor.variable;

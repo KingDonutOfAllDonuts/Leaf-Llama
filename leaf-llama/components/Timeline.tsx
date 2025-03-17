@@ -33,20 +33,23 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const opacityTransform = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
   return (
     <div
-      className="w-full bg-green-100 font-sans md:px-20 overflow-hidden"
+      className="w-full bg-green-100 md:px-20 overflow-hidden"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-5 px-4 md:px-8 lg:px-10">
-        <h2 className="text-lg md:text-5xl mb-8 mt-5 font-kaushan text-black max-w-4xl">
-          Our Story
-        </h2>
-        <p className="text-neutral-700 text-sm md:text-base max-w-xl">
-          The journey of Leaf Llama began with a simple idea: to create a space
-          where people could embrace a healthy, plant-based lifestyle while
-          celebrating the joy of delicious food. From our humble beginnings as a
-          small, local eatery, we have grown into a vibrant community-driven
-          restaurant that is committed to sustainability, innovation, and taste.
-        </p>
+      <div className="w-full flex justify-center items-center">
+        <div className="max-w-7xl mx-auto py-5 px-4 md:px-8 lg:px-10">
+          <h2 className="text-3xl w-full text-center md:text-7xl mb-8 mt-5 font-kaushan text-black max-w-4xl">
+            Our Story
+          </h2>
+          <p className="text-neutral-700 text-base md:text-lg max-w-4xl font-lora">
+            The journey of Leaf Llama began with a simple idea: to create a
+            space where people could embrace a healthy, plant-based lifestyle
+            while celebrating the joy of delicious food. From our humble
+            beginnings as a small, local eatery, we have grown into a vibrant
+            community-driven restaurant that is committed to sustainability,
+            innovation, and taste.
+          </p>
+        </div>
       </div>
 
       <div ref={ref} className="relative max-w-7xl mx-auto pb-20">

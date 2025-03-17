@@ -68,7 +68,7 @@ const Careers = () => {
 
   return (
     <div
-      className={`w-full relative flex flex-col ${fadeIn ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}
+      className={`w-full mb-5 relative flex flex-col ${fadeIn ? "opacity-100" : "opacity-0"} transition-opacity duration-1000`}
     >
       <LoadingOverlay isLoading={isLoading} />
       <Navbar />

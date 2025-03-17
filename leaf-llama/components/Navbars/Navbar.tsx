@@ -10,6 +10,7 @@ import copy from "copy-to-clipboard";
 import MiniNavbarMenu from "../MiniNavbarMenu";
 import { useAtom } from "jotai";
 import { navbarAtom } from "@/lib/store";
+import { usePathname } from "next/navigation";
 
 const Navbar = ({ top = false }) => {
   const [faqIsOpen, setFAQ] = useState(false);
@@ -19,6 +20,8 @@ const Navbar = ({ top = false }) => {
       setCopied(false);
     }, 3000);
   }, [copied]);
+
+  const pathname = usePathname();
 
   const [showNavbar, setShowNavbar] = useAtom(navbarAtom);
   const lastScrollY = useRef(0);
@@ -52,7 +55,7 @@ const Navbar = ({ top = false }) => {
 
   return (
     <nav
-      className={`z-[1000] flex h-[85px] justify-between px-6 py-2.5 fixed w-full transition-transform duration-300 ease-in-out ${
+      className={`z-[1000] flex h-[85px] font-varela justify-between px-6 py-2.5 fixed w-full transition-transform duration-300 ease-in-out ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       } ${
         top
@@ -82,7 +85,7 @@ const Navbar = ({ top = false }) => {
             return (
               <Link
                 href={`/#story`}
-                className="max-sm:hidden md:text-base lg:text-lg text-nowrap transform transition duration-200  hover:text-gray-100 hover:-translate-y-1 font-semibold font-kaushan text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
+                className="max-xl:hidden md:text-base lg:text-lg text-nowrap transform transition duration-200  hover:text-gray-100 hover:-translate-y-1 font-semibold font-kaushan text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]"
                 key={i}
               >
                 <Image
@@ -162,10 +165,11 @@ const Navbar = ({ top = false }) => {
               </button>
             );
           }
+
           return (
             <Link
               href={`/${val}`}
-              className={`${top ? "text-white hover:text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" : "hover:text-gray-700"} text-xs md:text-base lg:text-lg text-nowrap font-semibold transform hover:-translate-y-1 p-3 sm:p-5 transition duration-200`}
+              className={`${top ? "text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" : ""} ${pathname == `/${val}` ? "text-orange-500" : ""} hover:text-orange-500 text-xs md:text-base lg:text-lg text-nowrap font-semibold transform hover:-translate-y-1 p-3 sm:p-5 transition duration-200`}
               key={i}
             >
               {key.replaceAll("_", " ")}

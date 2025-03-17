@@ -6,12 +6,14 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  mode: 'jit',
+  mode: "jit",
   theme: {
     extend: {
       fontFamily: {
-        'roboto': ['var(--font-roboto)'],
-        'kaushan': ['var(--font-kaushan)']
+        lora: ["var(--font-lora)"],
+        kaushan: ["var(--font-kaushan)"],
+        varela: ["var(--font-varela)"],
+        poor: ["var(--font-poor)"],
       },
     },
   },

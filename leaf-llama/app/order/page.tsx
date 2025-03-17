@@ -12,6 +12,7 @@ import { cartAtom, ordersAtom } from "@/lib/store";
 import CartSidebar from "@/components/Sidebars/CartSidebar";
 import OrdersSidebar from "@/components/Sidebars/OrdersSidebar";
 import { handleGetOrders } from "../apiActions";
+import { FadeInUp } from "@/components/FadeInUp";
 
 const yOffset = -100;
 const sections = ["SALADS", "SMOOTHIES", "SIDES", "OTHERS"];
@@ -118,8 +119,8 @@ const Order = () => {
       <div className="pt-[92px] w-full">
         <div className="flex flex-row mt-10">
           {/* side bar */}
-          <aside className="w-[100px] md:w-[200px] m-2 ml-2 md:ml-10 rounded overflow-hidden">
-            <div className="w-[100px] md:w-[200px] border rounded border-gray-600 fixed top-1/2 transform -translate-y-1/2 flex flex-col items-start">
+          <aside className="w-[100px] md:w-[200px] ml-2 md:ml-10 rounded overflow-hidden h-screen sticky top-20">
+            <div className="w-[100px] md:w-[200px] border rounded border-gray-600 sticky top-20 flex flex-col items-start">
               {sections.map((section, index) => (
                 <button
                   key={section}
@@ -222,7 +223,7 @@ const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
       ref={(el) => (sectionRefs.current[index] = el) as any}
     >
       <FoodTitle title={title.toUpperCase()} />
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-5 w-full p-5 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 w-full p-5 mb-10">
         {list.map((food, i) => (
           <FoodItem key={i} food={food} openPopup={openPopup} />
         ))}
@@ -234,7 +235,7 @@ const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
 const FoodTitle = ({ title }: { title: string }) => {
   return (
     <div className="w-full px-5 md:px-28 pb-5">
-      <h1 className="w-full text-center text-xl sm:text-3xl md:text-5xl font-kaushan p-2 border-b-4 border-green-500 rounded-xl">
+      <h1 className="w-full text-center text-xl sm:text-3xl md:text-5xl font-kaushan p-2 border-b-4 border-green-500">
         {title}
       </h1>
     </div>
@@ -243,28 +244,30 @@ const FoodTitle = ({ title }: { title: string }) => {
 
 const FoodItem = ({ food, openPopup }) => {
   return (
-    <div
-      onClick={() => openPopup(food)}
-      className="w-full rounded-lg cursor-pointer hover:border-gray-900 transition-all flex flex-col border-2 hover:border-4 bg-white border-gray-500 overflow-hidden"
-    >
-      <Image
-        src={food.img}
-        alt="aaaa"
-        className="w-full object-cover aspect-square"
-      />
-      <div className="w-full flex justify-end">
-        <MdAddShoppingCart className="-mt-6 mr-1.5 -mb-3 bg-green-500 text-white rounded-full border border-green-950 p-1 md:p-2 text-xs md:text-base shadow-lg cursor-pointer w-7 md:w-10 h-7 md:h-10"></MdAddShoppingCart>
-      </div>
+    <FadeInUp>
+      <div
+        onClick={() => openPopup(food)}
+        className="w-full rounded-lg cursor-pointer group hover:border-gray-900 transition-all flex flex-col border-2 hover:border-4 bg-white border-gray-500 overflow-hidden"
+      >
+        <Image
+          src={food.img}
+          alt="aaaa"
+          className="w-full object-cover aspect-square"
+        />
+        <div className="w-full flex justify-end">
+          <MdAddShoppingCart className="-mt-6 mr-1.5 -mb-3 bg-green-500 text-white rounded-full border border-green-950 p-1 md:p-2 text-xs md:text-base shadow-lg cursor-pointer w-7 md:w-10 h-7 md:h-10"></MdAddShoppingCart>
+        </div>
 
-      <div className="pb-2">
-        <h3 className="font-kaushan text-base lg:text-xl text-green-800 w-full text-center -mt-1">
-          {food.name}
-        </h3>
-        <p className="text-xs lg:text-sm text-gray-500 w-full text-left -mt-4 -mb-5 p-3">
-          {formatPrice(food.price)}
-        </p>
+        <div className="pb-2">
+          <h3 className=" text-base lg:text-xl text-green-800 w-full text-center -mt-1">
+            {food.name}
+          </h3>
+          <p className="text-xs lg:text-sm text-gray-500 w-full text-left -mt-4 -mb-5 p-3">
+            {formatPrice(food.price)}
+          </p>
+        </div>
       </div>
-    </div>
+    </FadeInUp>
   );
 };
 
