@@ -95,50 +95,58 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
     <AnimatePresence>
       {isOpen && foodData != null && (
         <motion.div
-          className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-all duration-300 z-[1000] ${showNavbar ? "mt-[85px]" : ""}`}
-          style={{ height: showNavbar ? "calc(100vh - 85px)" : "100vh" }}
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-[1000]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-lg shadow-lg md:w-[600px] w-[450px] h-[calc(100%-50px)] relative flex flex-col" // Added flex-col
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-            transition={{ type: "tween", duration: 0.3 }}
+            className="bg-white rounded-xl shadow-2xl xl:w-[1200px] h-[95vh] relative flex flex-col"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.95, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            {/* top bar */}
-            <div className="h-10 border-b-2 border-b-orange-500">
-              <button
-                onClick={closePopup}
-                className="w-8 h-8 absolute left-2 font-bold text-2xl rounded text-red-700"
+            {/* Close Button */}
+            <button
+              onClick={closePopup}
+              className="absolute -right-2 -top-2 z-10 bg-white rounded-full p-2 shadow-lg hover:scale-105 transition-transform"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-red-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                &times;
-              </button>
-              <h3 className="w-full font-lora text-2xl h-full text-center align-middle leading-10 text-green-800">
-                {foodData.name}
-              </h3>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Content Container */}
+            <div className="w-full text-center text-2xl text-green-800 py-1">
+              {foodData.name}
             </div>
-            {/* form div */}
-            <div className="w-full h-[calc(100%-40px)] overflow-y-auto p-5">
-              {/* details */}
-              <Image
-                src={foodData.img}
-                alt=""
-                className="w-full object-cover aspect-square rounded-lg border-black border-2"
-              />
-              <div className="border-b-2 border-orange-500 pb-2">
-                <h3 className="text-2xl text-green-800">{foodData.name}</h3>
-                <p className="text-sm text-gray-600 my-1">
-                  {formatPrice(foodData.price)}
-                </p>
-                <p className="text-sm text-gray-700">{foodData.desc}</p>
+            <div className="flex flex-col max-md:overflow-y-scroll md:overflow-hidden md:flex-row-reverse flex-1 min-h-0">
+              {/* Image Section */}
+              <div className="w-full md:w-[500px] xl:w-[675px] space-y-4 flex items-center justify-center">
+                <div className="relative w-full aspect-square rounded-xl overflow-hidden">
+                  <Image
+                    src={foodData.img}
+                    alt={foodData.name}
+                    fill
+                    className="object-cover object-center"
+                  />
+                </div>
               </div>
 
-              {/* form stuff */}
-              <div className="p-2">
-                {/* Options */}
+              {/* Options Section */}
+              <div className="md:flex-1 space-y-6 p-1 md:overflow-auto">
                 {foodData.customization &&
                   Object.keys(foodData.customization).map((optionName) => {
                     const isMultiple =
@@ -147,65 +155,89 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
                     return (
                       <div
                         key={optionName}
-                        className={`space-y-2 border-b border-gray-400 p-2 pb-4 mb-1 ${
-                          incompleteOptions.includes(optionName)
-                            ? "border border-red-500 rounded p-2"
-                            : ""
-                        }`}
                         ref={(el) =>
                           (optionRefs.current[optionName] = el) as any
                         }
+                        className={`bg-gray-50 rounded-lg p-4 ${
+                          incompleteOptions.includes(optionName)
+                            ? "ring-2 ring-red-500"
+                            : ""
+                        }`}
                       >
-                        <h4 className="text-lg font-medium text-gray-800 capitalize">
+                        <h4 className="text-lg font-semibold text-gray-900 mb-3 capitalize">
                           {optionName.replace("_", " ")}
+                          {incompleteOptions.includes(optionName) && (
+                            <span className="text-red-500 text-sm ml-2">
+                              (required)
+                            </span>
+                          )}
                         </h4>
 
-                        {foodData.customization[optionName].map((value) => (
-                          <label
-                            key={value}
-                            className="flex items-center space-x-3 cursor-pointer group"
-                          >
-                            <input
-                              type={isMultiple ? "checkbox" : "radio"}
-                              name={optionName}
-                              value={value}
-                              checked={
-                                isMultiple
-                                  ? selectedOptions[optionName]?.includes(
-                                      value
-                                    ) || false
-                                  : selectedOptions[optionName] === value ||
-                                    false
-                              }
-                              onChange={() =>
-                                handleOptionChange(
-                                  optionName,
-                                  value,
+                        <div className="grid grid-cols-1 gap-2">
+                          {foodData.customization[optionName].map((value) => (
+                            <label
+                              key={value}
+                              className={`flex items-center p-3 rounded-md cursor-pointer transition-all ${
+                                (
                                   isMultiple
+                                    ? selectedOptions[optionName]?.includes(
+                                        value
+                                      )
+                                    : selectedOptions[optionName] === value
                                 )
-                              }
-                              className="w-5 h-5 text-white border-gray-400 rounded-full focus:ring-green-500 accent-green-600"
-                            />
-                            <span className="text-gray-800 group-hover:text-green-700 transition-colors">
-                              {value}
-                            </span>
-                          </label>
-                        ))}
+                                  ? "bg-green-50 border-2 border-green-600"
+                                  : "bg-white hover:bg-gray-50 border-2 border-gray-200"
+                              }`}
+                            >
+                              <input
+                                type={isMultiple ? "checkbox" : "radio"}
+                                name={optionName}
+                                value={value}
+                                checked={
+                                  isMultiple
+                                    ? selectedOptions[optionName]?.includes(
+                                        value
+                                      ) || false
+                                    : selectedOptions[optionName] === value ||
+                                      false
+                                }
+                                onChange={() =>
+                                  handleOptionChange(
+                                    optionName,
+                                    value,
+                                    isMultiple
+                                  )
+                                }
+                                className={`${
+                                  isMultiple ? "rounded" : "rounded-full"
+                                } w-5 h-5 border-2 border-gray-300 accent-green-600 focus:ring-green-500 focus:ring-offset-2`}
+                              />
+                              <span className="text-gray-800 ml-3">
+                                {value}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     );
                   })}
               </div>
             </div>
-            {/* Add to Cart Button */}
-            <div className="sticky bottom-0 bg-white border-t border-gray-200 p-4 mt-auto">
-              <div className="flex gap-2">
+
+            {/* Footer */}
+            <div className="sticky bottom-0 bg-white border-t border-gray-100 px-4 py-2 shadow-lg rounded-xl">
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <QuantitySelector
+                  value={quantity}
+                  onChange={setQuantity}
+                  // className="w-full md:w-auto"
+                />
                 <button
-                  onClick={() => validateAndSubmit()}
-                  className="w-full bg-green-500 text-white py-2 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-200"
+                  onClick={validateAndSubmit}
+                  className="w-full md:w-auto px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
                 >
                   Add to Cart - {formatPrice(foodData.price * quantity)}
                 </button>
-                <QuantitySelector value={quantity} onChange={setQuantity} />
               </div>
             </div>
           </motion.div>

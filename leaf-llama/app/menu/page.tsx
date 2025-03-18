@@ -21,6 +21,7 @@ const Menu = () => {
 
       <h1 className="w-full text-center text-5xl mt-20 p-16 font-kaushan bg-white relative">
         <div className="absolute inset-0 w-full h-full overflow-hidden">
+          <div className="absolute z-10 h-full w-full" />
           <Image
             className="w-full h-full object-cover"
             src={sliver}
@@ -28,7 +29,40 @@ const Menu = () => {
           />
         </div>
         <span className="relative text-gray-100 z-10">
-          Unbe-leaf-ably good for you...
+          <span className="inline-block group">
+            {[
+              "U",
+              "n",
+              "b",
+              "e",
+              "-",
+              "l",
+              "e",
+              "a",
+              "f",
+              "-",
+              "a",
+              "b",
+              "l",
+              "y",
+            ].map((letter, index) => (
+              <span
+                key={index}
+                className={`inline-block hover:text-green-300 transition-all duration-300 ${
+                  index >= 5 && index <= 8
+                    ? "text-green-600 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] animate-leaf"
+                    : ""
+                }`}
+                style={{
+                  animationDelay: `${(index - 5) * 100}ms`,
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
+                }}
+              >
+                {letter}
+              </span>
+            ))}
+          </span>
+          <br className="md:hidden" /> good for you...
         </span>
       </h1>
 
@@ -117,7 +151,7 @@ const FoodTitle = ({ title }: { title: string }) => {
       <FadeInUp>
         <h1
           className="text-center text-5xl font-kaushan p-2 w-full 
-          transition-all duration-1000 group-hover/food-category:tracking-wider"
+          transition-all duration-1000 group-hover/food-category:-translate-y-0.5 group-hover/food-category:tracking-wider"
         >
           {title.charAt(0) + title.slice(1).toLowerCase()}
         </h1>

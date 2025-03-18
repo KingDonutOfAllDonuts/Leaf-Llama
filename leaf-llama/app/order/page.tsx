@@ -13,7 +13,7 @@ import CartSidebar from "@/components/Sidebars/CartSidebar";
 import OrdersSidebar from "@/components/Sidebars/OrdersSidebar";
 import { handleGetOrders } from "../apiActions";
 import { FadeInUp } from "@/components/FadeInUp";
-
+import sliver from "@/public/OrderSliver.jpg";
 const yOffset = -100;
 const sections = ["SALADS", "SMOOTHIES", "SIDES", "OTHERS"];
 
@@ -79,6 +79,16 @@ const Order = () => {
     toggleCartSidebar();
   };
   // detect what in view
+  const [isTouch, setIsTouch] = useState(false);
+
+  useEffect(() => {
+    const hasTouch =
+      "ontouchstart" in window ||
+      navigator.maxTouchPoints > 0 ||
+      window.matchMedia("(pointer: coarse)").matches;
+    setIsTouch(hasTouch);
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -88,7 +98,7 @@ const Order = () => {
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: isTouch ? 0.05 : 0.25 }
     );
 
     sectionRefs.current.forEach((section) => {
@@ -101,7 +111,7 @@ const Order = () => {
         if (section) observer.unobserve(section);
       });
     };
-  }, []);
+  }, [isTouch]);
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
@@ -113,47 +123,97 @@ const Order = () => {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative bg-gray-100">
       <Navbar />
+      <div className="pt-[80px]">
+        <h1 className="w-full text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl p-10 lg:p-16 font-kaushan bg-white relative">
+          <div className="absolute inset-0 w-full h-full overflow-hidden">
+            <div className="absolute z-10 h-full w-full bg-gray-500/10" />
+            <Image
+              className="w-full h-full object-cover"
+              src={sliver}
+              alt="Decorative background"
+            />
+          </div>
+          <span className="relative text-gray-100 z-10 whitespace-nowrap">
+            Thank you{" "}
+            <span className="inline-block group">
+              {["b", "e", "r", "r", "y"].map((letter, index) => (
+                <span
+                  key={index}
+                  className={`inline-block hover:text-red-400 transition-all text-red-700 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] animate-wave delay-${index * 100}`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  {letter}
+                </span>
+              ))}
+            </span>{" "}
+            much for your order!
+          </span>
+        </h1>
+      </div>
 
-      <div className="pt-[92px] w-full">
+      <div className="w-full">
         <div className="flex flex-row mt-10">
           {/* side bar */}
-          <aside className="w-[100px] md:w-[200px] ml-2 md:ml-10 rounded overflow-hidden h-screen sticky top-20">
-            <div className="w-[100px] md:w-[200px] border rounded border-gray-600 sticky top-20 flex flex-col items-start">
-              {sections.map((section, index) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`md:pl-4 text-sm md:text-2xl mx-2 my-3 md:m-5 text-green-700 hover:text-green-500 transition-all   ${
-                    activeSection === section ? "font-bold" : "font-normal"
-                  }`}
-                >
-                  {section}
-                </button>
-              ))}
+          <aside className="w-[100px] md:w-[220px] ml-2 md:ml-8 h-screen sticky top-0 flex items-center">
+            <div className="w-full border rounded-xl border-gray-200 bg-white/95 backdrop-blur-sm sticky top-20 flex flex-col items-center px-2 py-4 space-y-4 shadow-sm">
+              {/* Section Navigation */}
+              <div className="w-full space-y-1.5">
+                {sections.map((section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`w-full px-3 py-2.5 text-left rounded-md transition-all duration-200
+            ${
+              activeSection === section
+                ? "bg-green-50 border border-green-200 text-green-700 font-semibold"
+                : "text-gray-600 hover:bg-gray-50 hover:text-gray-800"
+            }
+            text-xs md:text-lg font-medium`}
+                  >
+                    {section}
+                  </button>
+                ))}
+              </div>
 
-              {/* buttons */}
-              <div className="flex w-full mb-5 gap-2">
+              {/* Action Buttons */}
+              <div className="w-full mt-auto space-y-3 px-1.5">
                 <button
                   onClick={toggleCartSidebar}
-                  className="flex items-center justify-center w-1/2 text-xl p-2 md:ml-2 text-white bg-green-700 rounded-full hover:bg-green-600 hover:-translate-y-0.5 transition-all"
+                  className="group relative w-full flex items-center justify-center p-2 space-x-1.5
+                 text-white bg-green-600 rounded-lg hover:bg-green-700 
+                 transition-all duration-200 hover:scale-105 active:scale-95"
                 >
-                  <MdAddShoppingCart className="text-xl md:text-2xl" />
-                  <span className="text-2xl font-medium max-md:hidden">
-                    ({cart.length})
+                  <MdAddShoppingCart className="text-lg md:text-2xl" />
+                  <span className="text-sm md:text-lg font-medium hidden md:inline">
+                    Cart ({cart.length})
                   </span>
+                  {cart.length > 0 && (
+                    <span
+                      className="absolute -top-1.5 -right-1.5 bg-orange-500 text-white 
+                         text-[10px] w-5 h-5 rounded-full flex items-center justify-center
+                         animate-pulse"
+                    >
+                      {cart.length}
+                    </span>
+                  )}
                 </button>
+
                 <button
                   onClick={toggleOrdersSidebar}
-                  className="flex items-center justify-center w-1/2 md:text-xl text-xs p-0.5 md:p-2 md:mr-2 text-white bg-gray-600 rounded-full hover:bg-gray-500 hover:-translate-y-0.5 transition-all"
+                  className="group relative w-full flex items-center justify-center p-2 space-x-1.5
+                 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 
+                 transition-all duration-200 hover:scale-105 active:scale-95"
                 >
-                  {orders != null && orders.length > 0 ? (
-                    <FaExclamation className="absolute ml-9 mb-5  md:ml-16 md:mb-6 text-white bg-red-500 p-0.5 md:p-1 rounded-full" />
-                  ) : (
-                    ""
+                  <span className="text-sm md:text-lg font-medium">Orders</span>
+                  {orders?.length > 0 && (
+                    <FaExclamation
+                      className="absolute -top-1.5 -right-1.5 text-orange-500 
+                                   bg-white rounded-full p-0.5 shadow-sm 
+                                   animate-pulse text-xs"
+                    />
                   )}
-                  <p className="z-10">Orders</p>
                 </button>
               </div>
             </div>
@@ -218,12 +278,12 @@ const Order = () => {
 const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
   return (
     <section
-      className="w-full"
+      className="w-full group/food-category"
       id={title}
       ref={(el) => (sectionRefs.current[index] = el) as any}
     >
       <FoodTitle title={title.toUpperCase()} />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 w-full p-5 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full p-5 mb-10">
         {list.map((food, i) => (
           <FoodItem key={i} food={food} openPopup={openPopup} />
         ))}
@@ -234,10 +294,12 @@ const FoodCatagory = ({ title, list, sectionRefs, index, openPopup }) => {
 
 const FoodTitle = ({ title }: { title: string }) => {
   return (
-    <div className="w-full px-5 md:px-28 pb-5">
-      <h1 className="w-full text-center text-xl sm:text-3xl md:text-5xl font-kaushan p-2 border-b-4 border-green-500">
-        {title}
-      </h1>
+    <div className="w-full px-5 md:px-28 pb-1 group/food-category">
+      <FadeInUp>
+        <h1 className="text-center text-3xl md:text-5xl font-kaushan p-2 w-full transition-all duration-1000 group-hover/food-category:tracking-wider group-hover/food-category:-translate-y-0.5">
+          {title.charAt(0) + title.slice(1).toLowerCase()}
+        </h1>
+      </FadeInUp>
     </div>
   );
 };
@@ -247,24 +309,30 @@ const FoodItem = ({ food, openPopup }) => {
     <FadeInUp>
       <div
         onClick={() => openPopup(food)}
-        className="w-full rounded-lg cursor-pointer group hover:border-gray-900 transition-all flex flex-col border-2 hover:border-4 bg-white border-gray-500 overflow-hidden"
+        className="w-full group rounded-lg cursor-pointer group hover:shadow-lg transition-all hover:-translate-y-1.5 duration-500 flex flex-col shadow-sm bg-white border-gray-200 overflow-hidden"
       >
-        <Image
-          src={food.img}
-          alt="aaaa"
-          className="w-full object-cover aspect-square"
-        />
-        <div className="w-full flex justify-end">
-          <MdAddShoppingCart className="-mt-6 mr-1.5 -mb-3 bg-green-500 text-white rounded-full border border-green-950 p-1 md:p-2 text-xs md:text-base shadow-lg cursor-pointer w-7 md:w-10 h-7 md:h-10"></MdAddShoppingCart>
+        <div className="relative overflow-hidden">
+          <Image
+            src={food.img}
+            alt={food.name}
+            className="w-full object-cover aspect-square transition-transform duration-500 group-hover:scale-105"
+          />
+          {/* <div className="absolute bottom-0 right-0 p-2">
+            <MdAddShoppingCart className="bg-green-500 text-white rounded-full border border-green-950 p-1 md:p-2 text-xs md:text-base shadow-lg cursor-pointer w-7 md:w-10 h-7 md:h-10 transition-transform duration-300 hover:scale-110" />
+          </div> */}
         </div>
-
-        <div className="pb-2">
-          <h3 className=" text-base lg:text-xl text-green-800 w-full text-center -mt-1">
-            {food.name}
-          </h3>
-          <p className="text-xs lg:text-sm text-gray-500 w-full text-left -mt-4 -mb-5 p-3">
-            {formatPrice(food.price)}
-          </p>
+        <div className="flex flex-row items-center justify-between">
+          <div className="p-3">
+            <h3 className="text-base md:text-xl text-green-800 group-hover:-translate-y-1 transition-transform duration-500">
+              {food.name}
+            </h3>
+            <p className="text-xs md:text-sm text-gray-500 group-hover:-translate-y-0.5 transition-transform duration-500">
+              {formatPrice(food.price)}
+            </p>
+          </div>
+          <div className="p-2">
+            <MdAddShoppingCart className="bg-green-500 group-hover:rotate-12 text-white rounded-full p-2 text-xs group-hover:-translate-y-1 md:text-base shadow-xl cursor-pointer w-10 h-10 lg:w-11 lg:h-11 duration-500 transition-all group-hover:scale-110" />
+          </div>
         </div>
       </div>
     </FadeInUp>

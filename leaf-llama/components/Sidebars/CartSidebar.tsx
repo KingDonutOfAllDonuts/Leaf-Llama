@@ -82,7 +82,7 @@ const CartSidebar = ({ cartSidebarOpen, toggleCartSidebar, openPopup }) => {
       <div className="h-16 p-4 border-t bg-gray-100 flex justify-center items-center">
         <Link
           href={"/order/checkout"}
-          className="w-full bg-green-500 text-center text-white py-2 rounded-lg text-lg font-semibold hover:bg-green-600 transition duration-200"
+          className="w-full bg-green-500 text-center text-white py-2 rounded-lg text-lg font-semibold duration-200 hover:scale-105 active:scale-95 hover:bg-green-600 transition"
           //onClick={handleCheckout}
         >
           Checkout - {formatPrice(cartPrice)}

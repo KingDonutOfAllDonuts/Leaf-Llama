@@ -28,6 +28,7 @@ import plainSalad from "@/public/salads/salad.jpg";
 export const optionTypes = {
   multiple: ["sauce", "dressing"],
   singular: ["pickles", "size", "dressing preperation"],
+  singularNotReq: ["booster"],
 };
 
 export const salads = [
@@ -113,6 +114,7 @@ export const smoothies = [
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],
+      booster: ["Immunity", "Protein", "Fiber", "Energy"],
     },
   },
   {
@@ -122,6 +124,7 @@ export const smoothies = [
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],
+      booster: ["Immunity", "Protein", "Fiber", "Energy"],
     },
   },
   {
@@ -131,6 +134,7 @@ export const smoothies = [
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],
+      booster: ["Immunity", "Protein", "Fiber", "Energy"],
     },
   },
   {
@@ -140,6 +144,7 @@ export const smoothies = [
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],
+      booster: ["Immunity", "Protein", "Fiber", "Energy"],
     },
   },
   {
@@ -149,6 +154,7 @@ export const smoothies = [
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],
+      booster: ["Immunity", "Protein", "Fiber", "Energy"],
     },
   },
 ];
@@ -162,7 +168,10 @@ export const sides = [
     img: frenchFries,
     desc: "Double-fried golden russet potatoes with crispy exterior and fluffy center. Served with garlic aioli",
     price: 2.0,
-    customization: {},
+    customization: {
+      size: ["Small", "Medium", "Large"],
+      toppings: ["Tomato Sauce", "Parmesan", "Truffle"],
+    },
   },
   {
     name: "Banana Muffin",
@@ -176,7 +185,7 @@ export const sides = [
     img: garlicRoastedPotatoes,
     desc: "Herb-roasted baby potatoes with rosemary, thyme, and roasted garlic. Finished with lemon zest",
     price: 3.95,
-    customization: {},
+    customization: { size: ["Small", "Medium", "Large"] },
   },
 ];
 

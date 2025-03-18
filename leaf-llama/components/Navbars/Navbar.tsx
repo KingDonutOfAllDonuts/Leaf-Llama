@@ -100,7 +100,7 @@ const Navbar = ({ top = false }) => {
             return (
               <button
                 onClick={() => setFAQ(!faqIsOpen)}
-                className={`${top ? "text-white hover:text-gray-200 drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" : "hover:text-gray-700"} text-sm md:text-base lg:text-lg text-nowrap font-semibold transform hover:-translate-y-1 max-sm:p-1 p-5 transition duration-200`}
+                className={`${top ? "text-white drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]" : ""} ${pathname == `/references` ? "text-orange-500" : ""} hover:text-orange-500 text-sm md:text-base lg:text-lg text-nowrap font-semibold transform hover:-translate-y-1 max-sm:p-1 p-5 transition duration-200`}
                 key={i}
               >
                 {key.replaceAll("_", " ")}
