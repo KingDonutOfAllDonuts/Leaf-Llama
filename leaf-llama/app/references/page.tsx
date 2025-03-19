@@ -238,11 +238,35 @@ const references = [
     source: "Pexels",
     license: "Pexels License",
   },
+
+  {
+    image: "/timeline/llama4.jpg",
+    source: "Pexels",
+    license: "Pexels License",
+  },
+
+  {
+    image: "/MenuSliver.jpg",
+    source: "Pexels",
+    license: "Pexels License",
+  },
+
+  {
+    image: "/OrderSliver.jpg",
+    source: "Pexels",
+    license: "Pexels License",
+  },
+
+  {
+    image: "/LocationSliver.jpg",
+    source: "Pexels",
+    license: "Pexels License",
+  },
 ];
 
 const References = () => {
   return (
-    <div className="w-full relative flex flex-col">
+    <div className="w-full relative flex flex-col mb-10">
       <Navbar />
       <div className="mt-[85px] px-10">
         <h1 className="w-full text-center text-5xl p-10 font-kaushan bg-white">
