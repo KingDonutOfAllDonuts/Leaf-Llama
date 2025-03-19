@@ -110,7 +110,7 @@ export const smoothies = [
   {
     name: "Banana Smoothie",
     img: bananaSmoothie,
-    desc: "Creamy blend of frozen bananas, almond milk, Greek yogurt, and a dash of cinnamon. Vegan option available",
+    desc: "Creamy blend of frozen bananas, almond milk, Greek yogurt, and a dash of cinnamon.",
     price: 4.3,
     customization: {
       size: ["Small", "Medium", "Large"],

@@ -131,6 +131,9 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
             {/* Content Container */}
             <div className="w-full text-center text-2xl text-green-800 py-1">
               {foodData.name}
+              <p className="text-center text-gray-600 text-sm italic px-4 mx-auto">
+                {foodData.desc}
+              </p>
             </div>
             <div className="flex flex-col max-md:overflow-y-scroll md:overflow-hidden md:flex-row-reverse flex-1 min-h-0">
               {/* Image Section */}

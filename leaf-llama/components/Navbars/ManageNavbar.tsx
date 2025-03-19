@@ -48,15 +48,17 @@ const ManageNavbar = ({ account }) => {
     router.push("/careers");
   };
   return (
-    <nav className="z-[900] flex h-[85px] items-center justify-between px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
-      <h2 className="text-2xl text-gray-800 font-mono tracking-wide mr-5 max-sm:hidden">
+    <nav className="z-[900] flex h-[85px] items-center px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
+      <h2 className="absolute left-0 text-2xl text-gray-800 font-mono tracking-wide mr-5 max-sm:hidden">
         Manage Orders
       </h2>
 
-      <Title top={false} />
+      <div className="max-md:hidden">
+        <Title top={false} />
+      </div>
 
       {/* menu Icon */}
-      <div className="flex flex-row">
+      <div className="flex flex-row absolute right-0 ml-6">
         {/* pr Dropdown */}
         {account ? (
           <Image
