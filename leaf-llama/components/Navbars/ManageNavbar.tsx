@@ -49,7 +49,7 @@ const ManageNavbar = ({ account }) => {
   };
   return (
     <nav className="z-[900] flex h-[85px] justify-center items-center px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
-      <h2 className="absolute left-0 text-2xl text-gray-800 font-mono tracking-wide mr-5 max-sm:hidden">
+      <h2 className="absolute left-0 text-2xl text-gray-800 font-mono tracking-wide ml-5">
         Manage Orders
       </h2>
 
