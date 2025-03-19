@@ -105,7 +105,7 @@ const AboutItem = ({ title, text, items, index }) => {
         <FadeIn variant={index % 2 === 0 ? "left" : "right"}>
           <h2 className="text-3xl lg:text-4xl text-green-100 mb-4">{title}</h2>
 
-          <p className="text-sm font-lora lg:text-lg text-gray-200">{text}</p>
+          <p className="text-sm md:text-lg lg:text-xl text-gray-200">{text}</p>
         </FadeIn>
       </div>
 
