@@ -19,7 +19,7 @@ const Menu = () => {
     <div className="relative flex flex-col items-center bg-gray-100 min-h-screen overflow-x-hidden">
       <Navbar />
 
-      <h1 className="w-full text-center text-5xl mt-20 p-16 font-kaushan bg-white relative">
+      <h1 className="w-full text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl p-10 lg:p-16 mt-20 font-kaushan bg-white relative">
         <div className="absolute inset-0 w-full h-full overflow-hidden">
           <div className="absolute z-10 h-full w-full" />
           <Image
@@ -28,41 +28,39 @@ const Menu = () => {
             alt="Decorative background"
           />
         </div>
-        <span className="relative text-gray-100 z-10">
-          <span className="inline-block group">
-            {[
-              "U",
-              "n",
-              "b",
-              "e",
-              "-",
-              "l",
-              "e",
-              "a",
-              "f",
-              "-",
-              "a",
-              "b",
-              "l",
-              "y",
-            ].map((letter, index) => (
-              <span
-                key={index}
-                className={`inline-block hover:text-green-300 transition-all duration-300 ${
-                  index >= 5 && index <= 8
-                    ? "text-green-600 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] animate-leaf"
-                    : ""
-                }`}
-                style={{
-                  animationDelay: `${(index - 5) * 100}ms`,
-                  textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
-                }}
-              >
-                {letter}
-              </span>
-            ))}
-          </span>
-          <br className="md:hidden" /> good for you...
+        <span className="relative text-gray-100 w-screen z-10 whitespace-nowrap">
+          {[
+            "U",
+            "n",
+            "b",
+            "e",
+            "-",
+            "l",
+            "e",
+            "a",
+            "f",
+            "-",
+            "a",
+            "b",
+            "l",
+            "y",
+          ].map((letter, index) => (
+            <span
+              key={index}
+              className={`inline-block hover:text-green-300 transition-all duration-300 ${
+                index >= 5 && index <= 8
+                  ? "text-green-600 drop-shadow-[0_1.5px_1.5px_rgba(0,0,0,0.8)] animate-leaf"
+                  : ""
+              }`}
+              style={{
+                animationDelay: `${(index - 5) * 100}ms`,
+                textShadow: "2px 2px 4px rgba(0,0,0,0.2)",
+              }}
+            >
+              {letter}
+            </span>
+          ))}{" "}
+          good for you...
         </span>
       </h1>
 

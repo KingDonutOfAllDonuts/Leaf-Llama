@@ -64,7 +64,7 @@ const Locations = () => {
     <div className="w-full relative flex flex-col bg-gray-100">
       <Navbar />
       <div className="flex justify-center flex-col">
-        <h1 className="w-full text-center text-5xl mt-20 p-16 font-kaushan bg-white relative">
+        <h1 className="w-full text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl mt-20 p-10 lg:p-16 font-kaushan bg-white relative">
           <div className="absolute inset-0 w-full h-full overflow-hidden">
             <div className="absolute z-10 h-full w-full bg-gray-500/10" />
             <Image className="w-full h-full object-cover" src={sliver} alt="" />

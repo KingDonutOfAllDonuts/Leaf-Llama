@@ -8,18 +8,18 @@ import MiniNavbarMenu from "../MiniNavbarMenu";
 
 const CheckoutNavbar = () => {
   return (
-    <nav className="z-[900] flex h-[85px] items-center justify-between px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
+    <nav className="z-[900] flex h-[85px] justify-center items-center px-6 py-2.5 fixed w-full bg-white border-b-2 border-orange-600">
       <Link
         href="/order"
-        className="text-xl whitespace-nowrap flex items-center space-x-2 hover:opacity-75 transition-all"
+        className="text-base absolute ml-2 left-0 md:text-xl whitespace-nowrap flex items-center space-x-2 hover:opacity-75 transition-all"
       >
         <HiMiniArrowLeftEndOnRectangle />
-        <span>Back & Change Order</span>
+        <span className="">Back & Change Order</span>
       </Link>
       <div className="max-md:hidden">
         <Title top={false} />
       </div>
-      <div className="-ml-16">
+      <div className=" absolute right-0 mr-4">
         <MiniNavbarMenu hidden={false} />
       </div>
     </nav>

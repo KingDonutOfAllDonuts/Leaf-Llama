@@ -45,7 +45,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             </h2>
           </FadeInUp>
           <FadeInUp>
-            <p className="text-neutral-700 text-base md:text-lg max-w-4xl font-lora">
+            <p className="text-neutral-700 text-base md:text-xl max-w-4xl">
               The journey of Leaf Llama began with a simple idea: to create a
               space where people could embrace a healthy, plant-based lifestyle
               while celebrating the joy of delicious food. From our humble

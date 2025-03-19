@@ -14,13 +14,13 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
   const [showNavbar, setShowNavbar] = useAtom(navbarAtom);
 
   const optionRefs = useRef({});
-  useEffect(() => {
-    if (isOpen && showNavbar && foodData) {
-      console.log("hello");
-      console.log(isOpen);
-      setShowNavbar(false);
-    }
-  }, [isOpen, showNavbar, setShowNavbar, foodData]);
+  // useEffect(() => {
+  //   if (isOpen && showNavbar && foodData) {
+  //     console.log("hello");
+  //     console.log(isOpen);
+  //     setShowNavbar(false);
+  //   }
+  // }, [isOpen, showNavbar, setShowNavbar, foodData]);
   const handleOptionChange = (optionName, value, isMultiple) => {
     setSelectedOptions((prev) => {
       if (isMultiple) {
