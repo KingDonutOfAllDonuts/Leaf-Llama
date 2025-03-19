@@ -101,7 +101,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className="bg-white rounded-xl shadow-2xl xl:w-[1200px] h-[95vh] relative flex flex-col"
+            className="bg-white rounded-xl shadow-2xl max-w-[1200px] max-h-[800px] w-[90%] h-[90vh] relative flex flex-col"
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
@@ -134,7 +134,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
             </div>
             <div className="flex flex-col max-md:overflow-y-scroll md:overflow-hidden md:flex-row-reverse flex-1 min-h-0">
               {/* Image Section */}
-              <div className="w-full md:w-[500px] xl:w-[675px] space-y-4 flex items-center justify-center">
+              <div className="w-full md:w-1/2 space-y-4 flex items-center justify-center bg-gray-50">
                 <div className="relative w-full aspect-square rounded-xl overflow-hidden">
                   <Image
                     src={foodData.img}
@@ -146,7 +146,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
               </div>
 
               {/* Options Section */}
-              <div className="md:flex-1 space-y-6 p-1 md:overflow-auto">
+              <div className="md:flex-1 space-y-6 p-1 md:overflow-auto bg-gray-50">
                 {foodData.customization &&
                   Object.keys(foodData.customization).map((optionName) => {
                     const isMultiple =
@@ -234,7 +234,7 @@ const AddToCartPopup = ({ isOpen, foodData, closePopup, handleSubmit }) => {
                 />
                 <button
                   onClick={validateAndSubmit}
-                  className="w-full md:w-auto px-8 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+                  className="w-full md:w-auto px-8 md:px-20 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
                 >
                   Add to Cart - {formatPrice(foodData.price * quantity)}
                 </button>

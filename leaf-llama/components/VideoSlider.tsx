@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaArrowLeft, FaArrowRight, FaCircle } from "react-icons/fa";
 
 type Slide = {
   id: number;
@@ -11,20 +10,41 @@ type Slide = {
 };
 
 export const VideoSlider = ({ items }: { items: Slide[] }) => {
-  const SLIDE_OFFSET = 10;
-  const [slides, setSlides] = useState<Slide[]>(items);
-  const videoElementRef = useRef<HTMLVideoElement>(null);
-  const cardStackRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [direction, setDirection] = useState<"left" | "right">("right");
+  const videoRefs = useRef<HTMLVideoElement[]>([]);
+  const sliderRef = useRef();
   const [isInView, setIsInView] = useState(false);
+  const [debounce, setDebounce] = useState(false);
   const [progress, setProgress] = useState(0);
 
-  const handleVideoEnd = () => {
-    setSlides((prevCards: Slide[]) => {
-      const newArray = [...prevCards];
-      newArray.unshift(newArray.pop()!);
-      return newArray;
-    });
-  };
+  useEffect(() => {
+    const currentVideo = videoRefs.current[currentSlide];
+    if (!currentVideo) return;
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        currentVideo.pause();
+      } else if (isInView) {
+        currentVideo.play().catch(() => {});
+      }
+    };
+
+    // Handle tab visibility changes
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Handle intersection observer changes
+    if (isInView) {
+      currentVideo.play().catch(() => {});
+    } else {
+      currentVideo.pause();
+    }
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      currentVideo.pause();
+    };
+  }, [isInView, currentSlide]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,46 +54,19 @@ export const VideoSlider = ({ items }: { items: Slide[] }) => {
       { threshold: 0.5 }
     );
 
-    if (cardStackRef.current) {
-      observer.observe(cardStackRef.current);
+    if (sliderRef.current) {
+      observer.observe(sliderRef.current);
     }
 
     return () => {
-      if (cardStackRef.current) {
-        observer.unobserve(cardStackRef.current);
+      if (sliderRef.current) {
+        observer.unobserve(sliderRef.current);
       }
     };
   }, []);
 
   useEffect(() => {
-    if (videoElementRef.current && isInView) {
-      videoElementRef.current.play();
-    } else if (videoElementRef.current) {
-      videoElementRef.current.pause();
-    }
-  }, [slides, isInView]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.5 }
-    );
-
-    if (cardStackRef.current) {
-      observer.observe(cardStackRef.current);
-    }
-
-    return () => {
-      if (cardStackRef.current) {
-        observer.unobserve(cardStackRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const video = videoElementRef.current;
+    const video = videoRefs.current[currentSlide];
     const updateProgress = () => {
       if (video) {
         const progressPercentage = (video.currentTime / video.duration) * 100;
@@ -81,81 +74,146 @@ export const VideoSlider = ({ items }: { items: Slide[] }) => {
       }
     };
 
-    const intervalId = setInterval(updateProgress, 30);
+    const intervalId = setInterval(updateProgress, 15);
 
     return () => clearInterval(intervalId);
-  }, [slides]);
+  }, [isInView, currentSlide]);
+
+  const handleNext = () => {
+    if (debounce) {
+      return;
+    }
+    setDebounce(true);
+    setDirection("right");
+    setCurrentSlide((prev) => (prev + 1) % items.length);
+    setTimeout(() => setDebounce(false), 500);
+  };
+
+  const handlePrev = () => {
+    if (debounce) {
+      return;
+    }
+    setDebounce(true);
+    setDirection("left");
+    setCurrentSlide((prev) => (prev - 1 + items.length) % items.length);
+    setTimeout(() => setDebounce(false), 500);
+  };
+
+  useEffect(() => {
+    const video = videoRefs.current[currentSlide];
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  }, [currentSlide]);
+
+  const handleVideoEnd = () => {
+    handleNext();
+  };
+
+  const slideVariants = {
+    enter: (direction: string) => ({
+      x: direction === "right" ? "100%" : "-100%",
+      opacity: 1,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    },
+    exit: (direction: string) => ({
+      x: direction === "right" ? "-100%" : "100%",
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeInOut" },
+    }),
+  };
 
   return (
-    <div className="flex flex-row">
-      <div
-        className="relative h-[215px] w-[300px] lg:h-[265px] lg:w-[350px] xl:h-[325px] xl:w-[500px] overflow-hidden rounded-3xl rounded-r-none"
-        ref={cardStackRef}
-      >
-        {slides.map((slide, index) => (
-          <motion.div
-            key={slide.id}
-            className="absolute bg-green-300 w-full h-full rounded-3xl p-3 shadow-inner border-2 border-r-0 border-gray-700/55 flex flex-col justify-between rounded-r-none"
-            style={{
-              transformOrigin: "top center",
+    <div className="relative w-full h-full overflow-hidden" ref={sliderRef}>
+      <AnimatePresence initial={false} custom={direction} mode="popLayout">
+        <motion.div
+          key={currentSlide}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          className="absolute inset-0"
+        >
+          <video
+            ref={(el) => {
+              if (el) {
+                videoRefs.current = [];
+                videoRefs.current[currentSlide] = el;
+              }
             }}
-            animate={{
-              //animate to
-              right: index * -SLIDE_OFFSET * 20,
+            src={items[currentSlide].videoSrc}
+            autoPlay
+            muted
+            playsInline
+            onEnded={handleVideoEnd}
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </AnimatePresence>
 
-              zIndex: slides.length - index,
+      {/* Navigation Arrows */}
+      <div className="absolute inset-0 flex items-center justify-between px-4">
+        <motion.button
+          onClick={handlePrev}
+          className="p-4 text-white/80 hover:text-white transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaArrowLeft className="w-8 h-8 drop-shadow-xl" />
+        </motion.button>
+        <motion.button
+          onClick={handleNext}
+          className="p-4 text-white/80 hover:text-white transition-colors"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaArrowRight className="w-8 h-8 drop-shadow-xl" />
+        </motion.button>
+      </div>
+
+      {/* Slide  Dots */}
+      <motion.div
+        className="absolute bottom-4 left-1/2 -translate-x-1/2 flex w-[85px] justify-between gap-1.5"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        {items.map((_, index) => (
+          <div
+            key={index}
+            className={` relative overflow-hidden text-sm cursor-pointer transition-all duration-1000 hover:text-green-500 ${
+              index === currentSlide ? "text-green-400/40" : "text-green-400/30"
+            }`}
+            style={{ width: index === currentSlide ? "50px" : "14px" }}
+            onClick={() => {
+              setDirection(index > currentSlide ? "right" : "left");
+              setCurrentSlide(index);
             }}
           >
-            <div className="font-normal text-gray-800">
-              {/* top video gets onEnded */}
-              {index === 0 ? (
-                <video
-                  src={slide.videoSrc}
-                  ref={videoElementRef}
-                  autoPlay
-                  muted
-                  playsInline
-                  className="h-full w-full rounded-3xl card-video-top"
-                  onEnded={handleVideoEnd}
-                />
-              ) : (
-                <video
-                  src={slide.videoSrc}
-                  muted
-                  playsInline
-                  className="h-full w-full rounded-lg"
-                />
-              )}
-            </div>
-            <div className="flex justify-between items-center">
-              <div className="flex flex-col">
-                <p className="text-gray-800 font-medium mt-2">{slide.name}</p>
-                <a
-                  href="https://www.freepik.com/"
-                  className="text-xs text-blue-500 w-full text-right -mt-1"
-                >
-                  Freepik
-                </a>
-              </div>
-
-              <div className="flex-1 mx-2">
-                <div className="w-full bg-gray-200 rounded-full h-2.5">
-                  <div
-                    className="bg-gray-700 h-2.5 rounded-full"
-                    style={{ width: `${progress}%` }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            {index === currentSlide && (
+              <span
+                className="block absolute rounded-full h-3.5 bg-green-300 z-50"
+                style={{ width: `${progress}%` }}
+              ></span>
+            )}
+            <span className="block  w-full h-3.5 rounded-full bg-current"></span>
+          </div>
         ))}
-      </div>
-      <button
-        className="flex justify-center items-center bg-green-500 border-2 w-[50px] border-gray-700/55 border-l-0 p-1 hover:cursor-pointer z-50 hover:bg-green-500/70  ease-out transition-all duration-75 hover:w-[60px] hover:justify-end hover:text-black"
-        onClick={handleVideoEnd}
+      </motion.div>
+
+      {/* Slide Title */}
+      <motion.div
+        className="absolute w-full bottom-9 text-white text-2xl font-medium text-center"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
       >
-        <FaArrowRight className="h-[50px] w-[50px] text-gray-600" />
-      </button>
+        {items[currentSlide].name}
+      </motion.div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { VideoSlider } from "./VideoSlider";
+import FadeIn from "./FadeInUp";
 
 const farmToTableCards = [
   {
@@ -85,7 +86,7 @@ const AboutSection = () => {
               biodegradable packaging to energy-efficient practices, we’re
               dedicated to protecting the planet while serving wholesome,
               plant-based food."
-          items={farmToTableCards}
+          items={sustainabilityCards}
           index={2}
         />
 
@@ -98,14 +99,17 @@ const AboutSection = () => {
 const AboutItem = ({ title, text, items, index }) => {
   return (
     <div
-      className={`flex ${index % 2 == 0 ? "flex-row" : "flex-row-reverse"} items-center h-[400px]`}
+      className={`flex flex-col-reverse ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} items-center h-auto lg:h-[400px]`}
     >
-      <div className="w-full lg:w-1/2 px-10">
-        <h2 className="text-4xl text-green-100 mb-4">{title}</h2>
-        <p className="text-sm font-lora xl:text-lg text-gray-200">{text}</p>
+      <div className="w-full lg:w-1/2 px-5 lg:px-10 py-8 lg:py-0 order-2 lg:order-1">
+        <FadeIn variant={index % 2 === 0 ? "left" : "right"}>
+          <h2 className="text-3xl lg:text-4xl text-green-100 mb-4">{title}</h2>
+
+          <p className="text-sm font-lora lg:text-lg text-gray-200">{text}</p>
+        </FadeIn>
       </div>
-      {/* stack */}
-      <div className="flex-1 bg-red-200 h-full">
+
+      <div className="w-full lg:flex-1 h-[300px] lg:h-full order-1 lg:order-2">
         <VideoSlider items={items} />
       </div>
     </div>
