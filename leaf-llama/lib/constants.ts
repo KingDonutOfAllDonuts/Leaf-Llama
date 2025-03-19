@@ -39,7 +39,7 @@ export const salads = [
     price: 11.95,
     customization: {
       size: ["Small", "Medium", "Large"],
-      pickles: ["Yes pickles", "NO pickles"],
+      pickles: ["With pickles", "No pickles"],
       dressing: ["Ranch", "Honey Mustard", "Vinaigrette"], //sides list
       "dressing preperation": ["Mixed", "Dressing On The Side"],
     },
@@ -51,7 +51,7 @@ export const salads = [
     price: 9.75,
     customization: {
       size: ["Small", "Medium", "Large"],
-      pickles: ["Yes pickles", "NO pickles"],
+      pickles: ["With pickles", "NO pickles"],
       dressing: ["Ranch", "Honey Mustard", "Vinaigrette"], //sides list
       "dressing preperation": ["Mixed", "Dressing On The Side"],
     },
@@ -63,7 +63,7 @@ export const salads = [
     price: 12.25,
     customization: {
       size: ["Small", "Medium", "Large"],
-      pickles: ["Yes pickles", "NO pickles"],
+      pickles: ["With pickles", "NO pickles"],
       dressing: ["Ranch", "Honey Mustard", "Vinaigrette"], //sides list
       "dressing preperation": ["Mixed", "Dressing On The Side"],
     },
@@ -75,7 +75,7 @@ export const salads = [
     price: 10.25,
     customization: {
       size: ["Small", "Medium", "Large"],
-      pickles: ["Yes pickles", "NO pickles"],
+      pickles: ["With pickles", "NO pickles"],
       dressing: ["Ranch", "Honey Mustard", "Vinaigrette"], //sides list
       "dressing preperation": ["Mixed", "Dressing On The Side"],
     },
@@ -87,7 +87,7 @@ export const salads = [
     price: 10.95,
     customization: {
       size: ["Small", "Medium", "Large"],
-      pickles: ["Yes pickles", "NO pickles"],
+      pickles: ["With pickles", "NO pickles"],
       dressing: ["Ranch", "Honey Mustard", "Vinaigrette"], //sides list
       "dressing preperation": ["Mixed", "Dressing On The Side"],
     },
