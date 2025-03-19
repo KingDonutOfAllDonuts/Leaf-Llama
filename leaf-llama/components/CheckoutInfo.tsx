@@ -5,9 +5,9 @@ import { formatPrice } from "@/lib/utils";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { FaCheckCircle, FaTimes, FaTimesCircle } from "react-icons/fa";
 import LoadingOverlay from "./LoadingOverlay";
-
+import { motion } from "framer-motion";
 const CheckoutInfo = () => {
   const [cart, setCart] = useAtom(cartAtom);
   const setOrders = useSetAtom(ordersAtom);
@@ -89,7 +89,7 @@ const CheckoutInfo = () => {
   let cartPrice = 0;
   return (
     <>
-      <div className="flex w-full justify-center space-x-32 px-5 md:px-20">
+      <div className="flex w-full justify-center space-x-32 px-5 md:px-20 pb-20">
         {/* pricing information */}
         <div className="px-5 flex justify-center mb-5">
           {/* form */}
@@ -200,7 +200,7 @@ const CheckoutInfo = () => {
 
               {/* Submit Button */}
               <button
-                className="bg-green-800 text-white py-2 px-4 rounded md:text-base text-sm hover:bg-green-700 transition"
+                className="bg-green-800 text-white py-2 px-4 rounded md:text-base text-sm hover:bg-green-700 hover:scale-105 active:scale-95 transition-all"
                 onClick={validateOrder}
               >
                 {submitLoading ? "Order is Being Placed....." : "Place Order"}
@@ -287,55 +287,104 @@ const CheckoutInfo = () => {
 
 const OrderPlacedPopup = ({ orderResponse, onClose, emptyCart }) => {
   const [orders, setOrders] = useAtom(ordersAtom);
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
-    if (orderResponse != false && orderResponse != null) {
-      emptyCart();
-      console.log(orderResponse);
-      setOrders([...orders, orderResponse._id]);
+    if (orderResponse) {
+      setIsVisible(true);
+      if (orderResponse !== false) {
+        emptyCart();
+        setOrders([...orders, orderResponse._id]);
+      } else {
+        setIsVisible(false);
+      }
     }
   }, [orderResponse]);
 
-  if (orderResponse == null) {
-    return "";
-  }
+  if (!isVisible) return null;
 
   let content;
   if (orderResponse === false) {
     content = (
-      <div className="flex flex-col items-center justify-center h-full text-red-600">
-        <FaTimesCircle size={64} className="mb-4" />
-        <h2 className="text-2xl font-bold">Something went wrong.</h2>
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="flex flex-col items-center justify-center h-full p-8 text-center"
+      >
+        <div className="relative">
+          <div className="absolute inset-0 bg-red-500/10 rounded-full animate-ping" />
+          <FaTimesCircle
+            size={80}
+            className="mb-6 text-red-500 drop-shadow-sm"
+          />
+        </div>
+        <h2 className="text-3xl font-bold text-red-600 mb-2">Order Failed</h2>
+        <p className="text-gray-600 mb-6">
+          We couldn't process your payment. Please try again.
+        </p>
         <button
-          className="bg-gray-600 text-white px-6 py-2 rounded-full mt-5 hover:bg-gray-700 transition"
+          className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-3 rounded-full 
+          font-semibold hover:shadow-lg transition-all duration-300 transform hover:scale-105"
           onClick={onClose}
         >
-          Close
+          Try Again
         </button>
-      </div>
+      </motion.div>
     );
   } else {
     content = (
-      <div className="flex flex-col items-center justify-center h-full text-green-600">
-        <FaCheckCircle size={64} className="mb-4" />
-        <h2 className="text-2xl font-bold">
-          Order has been placed. It&apos;s on the house!
+      <motion.div
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        className="flex flex-col items-center justify-center h-full p-8 text-center"
+      >
+        <div className="relative mb-6">
+          <div className="absolute inset-0 bg-green-500/10 rounded-full animate-ping" />
+          <FaCheckCircle
+            size={80}
+            className="text-green-500 drop-shadow-sm animate-pop-in"
+          />
+        </div>
+        <h2 className="text-3xl font-bold text-green-600 mb-2">
+          Order Confirmed!
         </h2>
-        <Link
-          href={"/order"}
-          className="bg-green-600 text-white px-6 py-2 rounded-full mt-5 hover:bg-green-700 transition"
-        >
-          Back to Order Page
-        </Link>
-      </div>
+        <p className="text-gray-600 mb-6">Your delicious meal is on its way!</p>
+        <div className="flex gap-4">
+          <Link
+            href={"/order"}
+            className="bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-3 rounded-full 
+            font-semibold transition-all duration-300 transform hover:scale-105"
+          >
+            Back to Order
+          </Link>
+        </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="mt-[85px] h-[calc(100vh-80px)] fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg w-[450px] h-[300px] relative">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 backdrop-blur-sm flex items-center justify-center"
+    >
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
+
+      <motion.div
+        initial={{ y: 25 }}
+        animate={{ y: 0 }}
+        className="relative bg-white rounded-2xl shadow-2xl w-[95%] max-w-md overflow-hidden"
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 text-red-400 hover:text-red-600 transition-colors"
+        >
+          <FaTimes size={20} />
+        </button>
         {content}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

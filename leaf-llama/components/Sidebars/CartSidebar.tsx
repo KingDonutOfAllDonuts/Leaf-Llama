@@ -37,10 +37,12 @@ const CartSidebar = ({ cartSidebarOpen, toggleCartSidebar, openPopup }) => {
                 className="flex gap-2 border-b-2 py-3 px-2 cursor-pointer transition-all hover:bg-slate-100 hover:opacity-80"
                 key={i}
               >
-                <p className="text-xl text-gray-500">{cartFood.quantity}</p>
+                <p className="text-xl xl:text-2xl text-gray-500">
+                  {cartFood.quantity}
+                </p>
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between w-full">
-                    <h3 className="font-medium text-black text-xl">
+                    <h3 className="text-xl xl:text-2xl font-medium text-black">
                       {cartFood.data.name}
                     </h3>
                     <div className="flex">
@@ -50,14 +52,14 @@ const CartSidebar = ({ cartSidebarOpen, toggleCartSidebar, openPopup }) => {
                       <FaTrashAlt
                         className="w-4 h-4 ml-3 text-red-700 hover:text-red-300 transition-all"
                         onClick={(e) => {
-                          e.stopPropagation(); // prevents the event from bubbling to the parent
+                          e.stopPropagation();
                           cart.splice(i, 1);
                           setCart([...cart]);
                         }}
                       />
                     </div>
                   </div>
-                  <div className="text-xs text-gray-500 pl-2">
+                  <div className="text-xs xl:text-sm text-gray-500 pl-2">
                     {Object.values(cartFood).map((v, i) => {
                       return (
                         <p key={i}>

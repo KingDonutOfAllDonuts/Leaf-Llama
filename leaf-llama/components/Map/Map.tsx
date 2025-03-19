@@ -43,10 +43,10 @@ const MoveToClosestButton = ({ locations }) => {
   };
 
   return (
-    <div className="w-full flex justify-center p-5">
+    <div className="w-full flex justify-center p-5 font-varela">
       <button
         onClick={handleMoveToClosest}
-        className=" z-[999] bg-green-500 text-white px-4 py-2 rounded hover:-translate-y-0.5 hover:shadow-lg transition-all"
+        className=" z-[999] bg-green-500 text-white px-4 py-2 rounded hover:scale-105 active:scale-95 duration-300 transition-all"
       >
         Move to Closest Location
       </button>
@@ -92,7 +92,7 @@ const Map = ({ locations, selectedLocation }) => {
   }, []);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-[100.5%]">
       <MapContainer
         center={userLocation}
         zoom={5}

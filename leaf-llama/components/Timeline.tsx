@@ -6,6 +6,7 @@ import {
   motion,
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
+import { FadeInUp } from "./FadeInUp";
 
 interface TimelineEntry {
   title: string;
@@ -38,17 +39,21 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     >
       <div className="w-full flex justify-center items-center">
         <div className="max-w-7xl mx-auto py-5 px-4 md:px-8 lg:px-10">
-          <h2 className="text-3xl w-full text-center md:text-7xl mb-8 mt-5 font-kaushan text-black max-w-4xl">
-            Our Story
-          </h2>
-          <p className="text-neutral-700 text-base md:text-lg max-w-4xl font-lora">
-            The journey of Leaf Llama began with a simple idea: to create a
-            space where people could embrace a healthy, plant-based lifestyle
-            while celebrating the joy of delicious food. From our humble
-            beginnings as a small, local eatery, we have grown into a vibrant
-            community-driven restaurant that is committed to sustainability,
-            innovation, and taste.
-          </p>
+          <FadeInUp>
+            <h2 className="text-3xl w-full text-center md:text-7xl mb-8 mt-5 font-kaushan text-black max-w-4xl">
+              Our Story
+            </h2>
+          </FadeInUp>
+          <FadeInUp>
+            <p className="text-neutral-700 text-base md:text-lg max-w-4xl font-lora">
+              The journey of Leaf Llama began with a simple idea: to create a
+              space where people could embrace a healthy, plant-based lifestyle
+              while celebrating the joy of delicious food. From our humble
+              beginnings as a small, local eatery, we have grown into a vibrant
+              community-driven restaurant that is committed to sustainability,
+              innovation, and taste.
+            </p>
+          </FadeInUp>
         </div>
       </div>
 
@@ -78,45 +83,62 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 const TimelineItem = ({ index, item }) => {
   const cardRef = useRef(null);
   const [isInMiddle, setIsInMiddle] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       if (cardRef.current) {
         const rect = cardRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-
-        // Calculate the card's center and viewport center
         const cardCenter = rect.top + rect.height / 2;
-        const viewportCenter = windowHeight / 2;
-        // Check if the card's center is close to the viewport's center
-        if (cardCenter - viewportCenter < 100) {
-          setIsInMiddle(true);
-        } else {
-          setIsInMiddle(false);
-        }
+        const triggerZone = windowHeight * 0.4;
+
+        setIsInMiddle(cardCenter < windowHeight - triggerZone);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
-    // Cleanup the event listener
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   return (
     <div key={index} className="flex justify-start pt-10 md:pt-40">
       <div className="flex flex-col justify-center items-center max-w-20 w-full relative z-50">
         <div className="absolute top-1/2 -translate-y-[calc(50%+100px)] h-10 left-3 md:left-3 w-10 rounded-full bg-white flex items-center justify-center">
           <div
             ref={cardRef}
-            className="h-4 w-4 rounded-full bg-green-200 border border-green-300 p-2"
+            className={`
+              h-4 w-4 rounded-full border-2 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+              ${
+                isInMiddle
+                  ? "bg-green-500 border-green-600 scale-150 shadow-lg"
+                  : "bg-green-100 border-green-300 scale-100"
+              }
+            `}
           />
         </div>
       </div>
 
       <div
-        className={`relative w-full duration-300 bg-white shadow-md rounded-lg transition-all ${isInMiddle ? "opacity-100 -translate-y-2" : "opacity-50"} p-6`}
+        className={`
+          relative w-full bg-white shadow-lg rounded-lg p-6
+          transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+          ${
+            isInMiddle
+              ? "opacity-100 translate-y-0 scale-100 shadow-xl"
+              : "opacity-40 translate-y-10 scale-95 rotate-[1deg]"
+          }
+        `}
       >
-        <h3 className="text-2xl font-bold text-green-800 mb-4">{item.title}</h3>
-        {item.content}
+        <h3 className="text-2xl font-bold text-green-800 mb-4 transform transition-all duration-300 delay-150">
+          {item.title}
+        </h3>
+        <div
+          className={`transition-opacity duration-500 ${isInMiddle ? "opacity-100" : "opacity-40"}`}
+        >
+          {item.content}
+        </div>
       </div>
     </div>
   );

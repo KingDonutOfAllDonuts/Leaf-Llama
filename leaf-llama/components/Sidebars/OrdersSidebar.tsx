@@ -49,14 +49,14 @@ const OrdersSidebar = ({
               className="flex flex-col gap-2 border-b-2 py-3 px-2"
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-lg lg:text-xl font-semibold">
                   Order #{index + 1} -{" "}
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm md:text-base text-gray-500">
                     {new Date(order.date).toLocaleString()}
                   </span>
                 </h3>
                 <span
-                  className={`text-sm font-medium ${
+                  className={`text-base lg:text-lg font-medium ${
                     order.done ? "text-green-600" : "text-yellow-500"
                   }`}
                 >
@@ -69,7 +69,7 @@ const OrdersSidebar = ({
                 {order.cart.map((item, idx) => (
                   <li
                     key={item.data.name + idx}
-                    className="text-sm text-gray-700 mb-4"
+                    className="text-sm md:text-lg text-gray-700 mb-4"
                   >
                     {/* Main item row - clickable */}
                     <div
@@ -93,18 +93,16 @@ const OrdersSidebar = ({
                           : "max-h-0"
                       }`}
                     >
-                      <div className="text-xs text-gray-500 pl-2 no-drag">
+                      <div className="text-sm text-gray-500 pl-2 no-drag">
                         <ul>
-                          <div className="text-xs text-gray-500">
+                          <div className="text-sm lg:text-base text-gray-500">
                             {Object.values(item).map((v, i) => {
                               return (
                                 <p key={i}>
                                   {Array.isArray(v) && v.length != 0
                                     ? "- " +
                                       v.map((vv, i) => {
-                                        return (
-                                          vv + (i != v.length - 1 ? ", " : "")
-                                        );
+                                        return vv;
                                       })
                                     : typeof v == "string"
                                       ? "- " + v
@@ -121,7 +119,7 @@ const OrdersSidebar = ({
               </ul>
 
               {/* Order Details */}
-              <div className="text-sm text-gray-600">
+              <div className="text-sm md:text-base text-gray-600">
                 <strong>Details:</strong>{" "}
                 {order.details
                   ? `${order.details.comments} (${order.details.contactInfo})`

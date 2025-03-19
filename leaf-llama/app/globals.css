@@ -123,3 +123,32 @@ html {
   animation: growLine 1.5s ease-out forwards;
   animation-delay: 0.5s;
 }
+
+@keyframes digging {
+  0% {
+    transform: translateY(-0.2em) rotateZ(-2deg);
+    opacity: 0.9;
+    scale: 1.1;
+  }
+  30% {
+    transform: translateY(0.1em) rotateZ(3deg);
+  }
+  60% {
+    transform: translateY(-0.1em) rotateZ(-1deg);
+  }
+  90% {
+    transform: translateY(0) rotateZ(0);
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    transform: translateY(-0.2em) rotateZ(-2deg);
+    opacity: 0.9;
+    scale: 1.1;
+  }
+}
+
+.animate-digging {
+  animation: digging 2s ease-in-out forwards infinite;
+  display: inline-block;
+}

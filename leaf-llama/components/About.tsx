@@ -59,7 +59,7 @@ const sustainabilityCards = [
 const AboutSection = () => {
   return (
     <section className="bg-green-700 ">
-      <div className="container mx-auto">
+      <div className="">
         {/* FARM TO TABLE */}
         <AboutItem
           title={"Organic Farm-to-Table"}

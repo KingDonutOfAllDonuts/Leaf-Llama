@@ -89,7 +89,7 @@ const Manage = () => {
   };
 
   return (
-    <div className="w-full relative flex flex-col">
+    <div className="w-full relative flex flex-col min-h-screen">
       <ManageNavbar account={account} />
       <div className="flex flex-grow p-4 mt-[85px]">
         {/* "In Progress" Section */}

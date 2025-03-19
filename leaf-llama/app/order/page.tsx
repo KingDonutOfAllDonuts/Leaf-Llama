@@ -27,7 +27,10 @@ const Order = () => {
   const [orders, setOrders] = useState(null);
 
   useEffect(() => {
-    if (orderIds.length > 0 && orders == null) {
+    if (
+      orderIds.length > 0 &&
+      (orders == null || (orders != null && orders.length <= 0))
+    ) {
       handleGetOrders(orderIds)
         .then((result) => {
           if (!result) {
@@ -209,8 +212,8 @@ const Order = () => {
                   <span className="text-sm md:text-lg font-medium">Orders</span>
                   {orders?.length > 0 && (
                     <FaExclamation
-                      className="absolute -top-1.5 -right-1.5 text-orange-500 
-                                   bg-white rounded-full p-0.5 shadow-sm 
+                      className="absolute -top-1.5 -right-1.5 text-red-500 
+                                   bg-white w-5 h-5 md:w-6 md:h-6 rounded-full p-0.5 shadow-sm 
                                    animate-pulse text-xs"
                     />
                   )}
