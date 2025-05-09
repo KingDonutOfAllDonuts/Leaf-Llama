@@ -79,9 +79,9 @@ const Hero = () => {
         )}
 
         <ambientLight />
-        {/* <Suspense fallback={"loading"}>
+        <Suspense fallback={"loading"}>
           <Model position={[0, -1.85, 0]} />
-        </Suspense> */}
+        </Suspense>
         <Environment preset="sunset" />
       </Canvas>
     </div>
