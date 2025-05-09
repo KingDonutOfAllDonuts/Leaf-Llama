@@ -77,12 +77,16 @@ const Hero = () => {
             minPolarAngle={Math.PI / 3}
           />
         )}
-
+        <directionalLight
+          //ref={directionalLightRef}
+          intensity={1.25}
+          position={[0, 5, 0]}
+          castShadow
+        />
         <ambientLight />
         <Suspense fallback={"loading"}>
           <Model position={[0, -1.85, 0]} />
         </Suspense>
-        <Environment preset="sunset" />
       </Canvas>
     </div>
   );
