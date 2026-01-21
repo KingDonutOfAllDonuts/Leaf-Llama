@@ -23,7 +23,7 @@
     "leaflet-css": "^0.1.0",
     "localStorage": "^1.0.4",
     "lucide-react": "^0.479.0",
-    "next": "^15.0.2",
+    "next": "15.0.7",
     "react": "19.0.0-rc-7c8e5e7a-20241101",
     "react-confetti": "^6.2.2",
     "react-dom": "19.0.0-rc-7c8e5e7a-20241101",
